@@ -1,4 +1,5 @@
-﻿using PropertyManager.Models;
+﻿using Microsoft.Extensions.Hosting;
+using PropertyManager.Models;
 using PropertyManager.Utils;
 
 namespace PropertyManager.Repositories
@@ -76,6 +77,44 @@ namespace PropertyManager.Repositories
                 }
             }
         }
+
+        public List<MaintenanceHistory> GetMaintenanceHistoryByPropertyId(int propertyId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT Id, Description, DateCompleted, DateRequested, PropertyId, UserProfileId FROM MaintenanceHistory
+                        WHERE PropertyId = @propertyId
+                        ORDER BY DateCompleted";
+
+                    cmd.Parameters.AddWithValue("@propertyId", propertyId);
+                    var reader = cmd.ExecuteReader();
+
+                    var notes = new List<MaintenanceHistory>();
+
+                    while (reader.Read())
+                    {
+                        notes.Add(new MaintenanceHistory()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            Description = DbUtils.GetString(reader, "Description"),
+                            DateCompleted = DbUtils.GetDateTime(reader, "DateCompleted"),
+                            DateRequested = DbUtils.GetDateTime(reader, "DateRequested"),
+                            PropertyId = DbUtils.GetInt(reader, "PropertyId"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
+                        });
+                    }
+
+                    reader.Close();
+
+                    return notes;
+                }
+            }
+        }
+
 
         public void Add(MaintenanceHistory note)
         {

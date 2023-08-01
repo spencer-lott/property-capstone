@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PropertyManager.Repositories;
 using PropertyManager.Models;
+using Microsoft.Extensions.Hosting;
 
 namespace PropertyManager.Controllers
 {
@@ -32,6 +33,17 @@ namespace PropertyManager.Controllers
                 return NotFound();
             }
             return Ok(note);
+        }
+
+        [HttpGet("GetPropertyMaintenanceHistory/{id}")]
+        public IActionResult GetMaintenanceHistory(int id)
+        {
+            List<MaintenanceHistory> notes = _maintenanceHistoryRepository.GetMaintenanceHistoryByPropertyId(id);
+            if (notes == null)
+
+            { return NotFound(); }
+
+            return Ok(notes);
         }
 
         [HttpPost]
