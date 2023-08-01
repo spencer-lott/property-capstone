@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteProperty, getPropertyById } from "../Managers/PropertiesManager";
 import { Alert, Button, Col, Container, Row } from "react-bootstrap";
-import { getMaintenanceHistoryByPropertyId } from "../Managers/MaintenanceHistory";
+import { getMaintenanceHistoryByPropertyId } from "../Managers/MaintenanceHistoryManager";
 import { MaintenanceHistory } from "../maintenanceHistory/MaintenanceHistory";
 
 export const PropertyDetails = () => {
@@ -85,6 +85,7 @@ export const PropertyDetails = () => {
             </Col>
             <Col>
             <h1>Maintenance History</h1>
+            <Button onClick={() => navigate(`/maintenance-history/add`)}>Create Note</Button>
             {notes.map((note) => {
                 return <MaintenanceHistory key={note.id} note={note} />
             })}

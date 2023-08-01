@@ -3,6 +3,7 @@ import { PropertyList } from "../properties/PropertiesList"
 import { PropertiesForm } from "../properties/PropertyForm"
 import { PropertyDetails } from "../properties/PropertyDetails"
 import { PropertyEdit } from "../properties/PropertyEdit"
+import { MaintenanceHistoryForm } from "../maintenanceHistory/MaintenanceHistoryForm"
 
 export const ApplicationViews = () => {
     const localPMUser = localStorage.getItem("userProfile")
@@ -15,6 +16,7 @@ export const ApplicationViews = () => {
         <Route path="/properties/:id" element={ <PropertyDetails /> } />
         <Route path="/properties/add" element={ <PropertiesForm />} />
         <Route path="/properties/edit/:propertyId" element={ <PropertyEdit />} />
+        <Route path="/maintenance-history/add" element={ <MaintenanceHistoryForm />} />
 
         </Routes>
     )
