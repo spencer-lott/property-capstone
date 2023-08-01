@@ -39,3 +39,4 @@ export const deleteProperty = (id) => {
     }).then(() => getAllProperties())
 }
 
+

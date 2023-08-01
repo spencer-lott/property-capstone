@@ -2,7 +2,8 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteProperty, getPropertyById } from "../Managers/PropertiesManager";
 import { Alert, Button, Col, Container, Row } from "react-bootstrap";
-
+import { getMaintenanceHistoryByPropertyId } from "../Managers/MaintenanceHistory";
+import { MaintenanceHistory } from "../maintenanceHistory/MaintenanceHistory";
 
 export const PropertyDetails = () => {
     const [property, setProperty] = useState();
@@ -11,11 +12,15 @@ export const PropertyDetails = () => {
     const [showAlert, setShowAlert] = useState(false)
     const localPMUser = localStorage.getItem("userProfile");
     const PMUserObject = JSON.parse(localPMUser);
+    const [notes, setNotes] = useState([])
 
     useEffect(() => {
         getPropertyById(id).then(setProperty)
     },[])
     
+    useEffect(() => {
+        getMaintenanceHistoryByPropertyId(id).then(propertyNotes => setNotes(propertyNotes))
+    }, [])
     // console.log(property?.tenant.)
 
     if (!property) {
@@ -80,7 +85,9 @@ export const PropertyDetails = () => {
             </Col>
             <Col>
             <h1>Maintenance History</h1>
-            //Get Maintenance history by propertyId
+            {notes.map((note) => {
+                return <MaintenanceHistory key={note.id} note={note} />
+            })}
             </Col>
         </Row>
         </Container>
