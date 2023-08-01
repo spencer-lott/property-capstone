@@ -23,7 +23,6 @@ export const PropertyList = () => {
 
 console.log("humpty dumpty sat on a wall")
 console.log("humpty dumpty had a great fall")
-console.log("humpty dumpty was stupid")
 
     return (<>
         <Container fluid className="properties-list">
