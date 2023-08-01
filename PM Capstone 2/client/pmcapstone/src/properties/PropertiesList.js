@@ -21,9 +21,6 @@ export const PropertyList = () => {
         navigate("/properties/add")
     }
 
-console.log("humpty dumpty sat on a wall")
-console.log("humpty dumpty had a great fall")
-
     return (<>
         <Container fluid className="properties-list">
             <Row>
