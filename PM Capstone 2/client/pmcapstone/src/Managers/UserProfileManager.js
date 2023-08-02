@@ -17,3 +17,7 @@ export const login = (userObject) => {
 export const logout = () => {
       localStorage.clear()
 };
+
+export const getAllUserProfiles = () => {
+  return fetch('/api/UserProfile').then((res) => res.json())
+};
