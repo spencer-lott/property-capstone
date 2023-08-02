@@ -37,7 +37,7 @@ export const PropertyEdit = () => {
             Vacant: true
         }
 
-        return editProperty(propertyToEdit).then(navigate(`/properties`))
+        return editProperty(propertyToEdit).then(navigate(`/properties/${propertyId}`))
     }
 
     return(

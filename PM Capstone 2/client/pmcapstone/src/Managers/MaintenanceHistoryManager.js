@@ -16,4 +16,10 @@ export const addMaintenanceHistory = (singleNote) => {
     });
 }
 
+export const deleteMaintenanceHistory = (id) => {
+    return fetch(`/api/MaintenanceHistory/${id}`, {
+      method: "DELETE",
+    })
+  };
+
 

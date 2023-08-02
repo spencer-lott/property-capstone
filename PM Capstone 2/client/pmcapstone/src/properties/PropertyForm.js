@@ -1,7 +1,5 @@
 import { useState } from "react"
-import { Button, Form, FormGroup, InputGroup } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
-import { Input, Label } from "reactstrap"
 import { addProperty } from "../Managers/PropertiesManager"
 
 export const PropertiesForm = () => {
@@ -35,7 +33,7 @@ export const PropertiesForm = () => {
     <div>
     <h1>Create a new property</h1>
             <form className="property-form">
-                <h2 className="property-form">New Post</h2>
+                <h2 className="property-form">New Property</h2>
 
                 <fieldset>
                     <div className="form-group">

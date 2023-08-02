@@ -16,7 +16,7 @@ export const ApplicationViews = () => {
         <Route path="/properties/:id" element={ <PropertyDetails /> } />
         <Route path="/properties/add" element={ <PropertiesForm />} />
         <Route path="/properties/edit/:propertyId" element={ <PropertyEdit />} />
-        <Route path="/maintenance-history/add" element={ <MaintenanceHistoryForm />} />
+        <Route path="/maintenance-history/add/:propertyId" element={ <MaintenanceHistoryForm />} />
 
         </Routes>
     )

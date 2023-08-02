@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { deleteProperty, getPropertyById } from "../Managers/PropertiesManager";
-import { Alert, Button, Col, Container, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Row, Table } from "react-bootstrap";
 import { getMaintenanceHistoryByPropertyId } from "../Managers/MaintenanceHistoryManager";
 import { MaintenanceHistory } from "../maintenanceHistory/MaintenanceHistory";
 
@@ -44,6 +44,7 @@ export const PropertyDetails = () => {
     
     }
 
+
     const handleDelete = () => {
         deleteProperty(property.id).then(() => {
           setShowAlert(false)
@@ -85,10 +86,21 @@ export const PropertyDetails = () => {
             </Col>
             <Col>
             <h1>Maintenance History</h1>
-            <Button onClick={() => navigate(`/maintenance-history/add`)}>Create Note</Button>
+            <Button onClick={() => navigate(`/maintenance-history/add/${property.id}`)}>Create Note</Button>
+            <Table>
+            <thead>
+              <tr>
+                <th>Completed Status</th>
+                <th>Description</th>
+                <th>Date Requested</th>
+                <th>Edit/Delete</th>
+              </tr>
+            </thead>
+
             {notes.map((note) => {
-                return <MaintenanceHistory key={note.id} note={note} />
+                return <MaintenanceHistory key={note.id} note={note} setNotes={setNotes} />
             })}
+            </Table>
             </Col>
         </Row>
         </Container>
