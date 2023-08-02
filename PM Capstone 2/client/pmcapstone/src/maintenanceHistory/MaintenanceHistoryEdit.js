@@ -1,31 +1,51 @@
-import {useState} from "react"
-import {useNavigate, useParams} from "react-router-dom"
-import {addMaintenanceHistory} from "../Managers/MaintenanceHistoryManager"
+import { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
+import { editMaintenanceHistory, getMaintenanceHistoryById } from "../Managers/MaintenanceHistoryManager"
+import { getPropertyById } from "../Managers/PropertiesManager"
 
-export const MaintenanceHistoryForm = () => {
+export const MaintenanceHistoryEdit = () => {
+
     const localPMUser = localStorage.getItem("userProfile")
     const PMUserObject = JSON.parse(localPMUser)
     const navigate = useNavigate()
-    const { propertyId } = useParams()
+    const { noteId, mhpropertyId } = useParams()
     const [note, update] = useState({ 
         dateCompleted: '1999-09-09T13:40:50.994Z',
         description: "",
         userProfileId: PMUserObject.id,
-        propertyId: propertyId,
+        propertyId: mhpropertyId,
         dateRequested: Date.now()
     })
+
+    useEffect(() => {
+        getMaintenanceHistoryById(noteId)
+        .then((noteArray) => {
+            update(noteArray)
+        })
+    }, [noteId])
+
+    useEffect(() => {
+        getPropertyById(mhpropertyId)
+        .then((propertyArray) => {
+            update(propertyArray)
+        })
+    }, [mhpropertyId])
+
 
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
         const noteToSentToAPI = {
+            Id: parseInt(noteId),
             DateCompleted: '1999-09-09T13:40:50.994Z',
             Description: note.description,
             UserProfileId: PMUserObject.id,
-            PropertyId: propertyId,
-            DateRequested: new Date().toISOString()
+            PropertyId: mhpropertyId,
+            DateRequested: note.dateRequested
         }
         // need to navigate to the correct one
-        return addMaintenanceHistory(noteToSentToAPI).then(navigate(`/properties/${propertyId}`))
+        return editMaintenanceHistory(noteToSentToAPI)
+        // .then(() => getMaintenanceHistoryById(mhpropertyId))
+        .then(navigate(`/properties/${mhpropertyId}`))
     }
 
     return (
@@ -52,6 +72,25 @@ export const MaintenanceHistoryForm = () => {
                         </div>
                 </fieldset>
 
+                {/* <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="date-completed">Completed on</label>
+                            <input id="title" type="date" className="form-control"
+                                value={note.dateCompleted}
+                                onChange={
+                                    (event) => {
+                                        const copy = {
+                                            ...note
+                                        }
+                                        copy.dateCompleted = event.target.value
+                                        update(copy)
+                                    }
+                                }/>
+                        </div>
+                </fieldset>
+ */}
+
+
                 <button className="btn btn-primary"
                     onClick={
                         (clickEvent) => handleSaveButtonClick(clickEvent)
@@ -63,4 +102,7 @@ export const MaintenanceHistoryForm = () => {
 
     </>
     )
+
+
+
 }

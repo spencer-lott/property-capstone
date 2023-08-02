@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import { getAllUserProfiles } from "../Managers/UserProfileManager"
 import { deleteMaintenanceHistory, getMaintenanceHistoryByPropertyId } from "../Managers/MaintenanceHistoryManager"
 
-export const MaintenanceHistory = ({ note, setNotes }) => {
+export const MaintenanceHistory = ({ note, setNotes, property }) => {
     const {id} = useParams()
     const [users, setUsers] = useState([])
 
@@ -47,7 +47,7 @@ export const MaintenanceHistory = ({ note, setNotes }) => {
                 <td> {status()} </td>
                 <td> {note.description} </td>
                 <td> {formatDate(note.dateRequested)} </td>
-                <td><Link to={`/maintenance-history/${note.id}`}> Edit</Link>{" "}
+                <td><Link to={`/maintenance-history/edit/${note.id}/${property.id}`}> Edit</Link>{" "}
                 <Link onClick={handleDelete}>Delete</Link>
                 </td>
             </tr>

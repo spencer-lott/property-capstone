@@ -22,4 +22,20 @@ export const deleteMaintenanceHistory = (id) => {
     })
   };
 
+  export const editMaintenanceHistory = (maintenanceHistory) => {
+    console.log(maintenanceHistory)
+    return fetch(`/api/MaintenanceHistory/${maintenanceHistory.Id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(maintenanceHistory)
+    })
+    // .then(() => getAllProperties())
+}
+
+export const getMaintenanceHistoryById = (id) => {
+    return fetch(`/api/MaintenanceHistory/${id}`).then((res) => res.json())
+}
+
 
