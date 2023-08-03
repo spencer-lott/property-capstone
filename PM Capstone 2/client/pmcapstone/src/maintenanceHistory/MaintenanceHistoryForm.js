@@ -7,7 +7,7 @@ export const MaintenanceHistoryForm = () => {
     const PMUserObject = JSON.parse(localPMUser)
     const navigate = useNavigate()
     const { propertyId } = useParams()
-    const [note, update] = useState({ // THESE SHOULD NOT BE EMPTY STRINGS FOR THE DATE?
+    const [note, update] = useState({ 
         dateCompleted: '1999-09-09T13:40:50.994Z',
         description: "",
         userProfileId: PMUserObject.id,
@@ -24,7 +24,6 @@ export const MaintenanceHistoryForm = () => {
             PropertyId: propertyId,
             DateRequested: new Date().toISOString()
         }
-        // need to navigate to the correct one
         return addMaintenanceHistory(noteToSentToAPI).then(navigate(`/properties/${propertyId}`))
     }
 

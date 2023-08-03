@@ -98,7 +98,7 @@ export const PropertyDetails = () => {
             </thead>
 
             {notes.map((note) => {
-                return <MaintenanceHistory key={note.id} note={note} setNotes={setNotes} />
+                return <MaintenanceHistory key={note.id} note={note} setNotes={setNotes} property={property} />
             })}
             </Table>
             </Col>
