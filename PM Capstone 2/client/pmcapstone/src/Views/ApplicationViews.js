@@ -7,6 +7,7 @@ import { MaintenanceHistoryForm } from "../maintenanceHistory/MaintenanceHistory
 import { MaintenanceHistoryEdit } from "../maintenanceHistory/MaintenanceHistoryEdit"
 import { UserProfilesList } from "../userProfiles/UserProfilesList"
 import { UserProfileForm } from "../userProfiles/UserProfileForm"
+import { UserProfileEdit } from "../userProfiles/UserProfileEdit"
 
 export const ApplicationViews = () => {
     const localPMUser = localStorage.getItem("userProfile")
@@ -23,6 +24,7 @@ export const ApplicationViews = () => {
         <Route path="/maintenance-history/edit/:noteId/:mhpropertyId" element={ <MaintenanceHistoryEdit />} />
         <Route path="/users" element={<UserProfilesList />} />
         <Route path="/users/add" element={<UserProfileForm />} />
+        <Route path="/users/edit/:id" element={<UserProfileEdit />} />
 
         </Routes>
     )
