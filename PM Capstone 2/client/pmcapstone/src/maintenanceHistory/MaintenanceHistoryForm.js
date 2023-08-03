@@ -24,7 +24,6 @@ export const MaintenanceHistoryForm = () => {
             PropertyId: propertyId,
             DateRequested: new Date().toISOString()
         }
-        // need to navigate to the correct one
         return addMaintenanceHistory(noteToSentToAPI).then(navigate(`/properties/${propertyId}`))
     }
 
