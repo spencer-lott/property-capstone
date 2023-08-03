@@ -59,7 +59,7 @@ namespace PropertyManager.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT p.Id AS PId, p.StreetAddress, p.City, p.State, p.Type, p.SizeDescription, p.Rent, p.Vacant, COALESCE(t.Id, -1) as TId,COALESCE(t.FirstName, 'N/A') AS FirstName, COALESCE(t.LastName, 'N/A') AS LastName, COALESCE(t.PropertyId, -1) AS TPropertyId
+                        SELECT p.Id AS PId, p.StreetAddress, p.City, p.State, p.Type, p.SizeDescription, p.Rent, p.Vacant, COALESCE(t.Id, -1) as TId, COALESCE(t.PropertyId, -1) AS TPropertyId
                         FROM Property p
                         LEFT JOIN Tenant t ON p.Id = t.PropertyId
                         WHERE p.Id = @id";
@@ -84,8 +84,6 @@ namespace PropertyManager.Repositories
                             Tenant = new Tenant()
                             {
                                 Id = DbUtils.GetInt(reader, "TId"),
-                                FirstName = DbUtils.GetString(reader, "FirstName"),
-                                LastName = DbUtils.GetString(reader, "LastName"),
                                 PropertyId = DbUtils.GetInt(reader, "TPropertyId")
                             }
                         };

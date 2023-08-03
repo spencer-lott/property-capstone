@@ -15,11 +15,15 @@ export const MaintenanceHistoryEdit = () => {
         propertyId: mhpropertyId
     })
     const [originalDateRequested, setOriginalDateRequested] = useState(""); // New state variable
+    const [originalDateCompleted, setOriginalDateCompleted] = useState("");
+    const [originalDescription, setOriginalDescription] = useState("");
 
     useEffect(() => {
         getMaintenanceHistoryById(noteId).then((noteArray) => {
             update(noteArray);
-            setOriginalDateRequested(noteArray.dateRequested); // Store the original dateRequested
+            setOriginalDateRequested(noteArray.dateRequested) // Store the original dateRequested
+            setOriginalDateCompleted(noteArray.dateCompleted)
+            setOriginalDescription(noteArray.description)
         });
     }, [noteId]);
 
@@ -28,6 +32,7 @@ export const MaintenanceHistoryEdit = () => {
             update(propertyArray)
         })
     }, [mhpropertyId])
+
 
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
@@ -39,18 +44,28 @@ export const MaintenanceHistoryEdit = () => {
           dateCompleted = dateCompleted.trim();
         }
       
-        // If dateCompleted is empty or undefined, set it to a default value
-        if (!dateCompleted) {
-          dateCompleted = '1999-09-09T13:40:50.994Z';
+        // If dateCompleted is empty or undefined, set it to the default value I have decided for it
+        if (!dateCompleted || dateCompleted === '1999-09-09T13:40:50.994Z') {
+            // If the originalDateCompleted exists, use it as the dateCompleted value
+            if (originalDateCompleted) {
+            dateCompleted = originalDateCompleted;
+            } else {
+            dateCompleted = '1999-09-09T13:40:50.994Z';
+            }
         } else {
-          // If it's not empty, convert it to ISO string format
-          dateCompleted = new Date(dateCompleted).toISOString();
+            // If it's not empty, convert it to ISO string format
+            dateCompleted = new Date(dateCompleted).toISOString();
+        }
+
+        let descriptionToSave = note.description
+        if (!descriptionToSave) {
+            descriptionToSave = originalDescription
         }
 
         const noteToSentToAPI = {
             Id: parseInt(noteId),
             DateCompleted: dateCompleted,
-            Description: note.description,
+            Description: descriptionToSave,
             UserProfileId: PMUserObject.id,
             PropertyId: mhpropertyId,
             DateRequested: originalDateRequested
@@ -99,9 +114,7 @@ export const MaintenanceHistoryEdit = () => {
                                     }
                                 }/>
                         </div>
-                </fieldset>
- }
-
+                </fieldset>}
 
                 <button className="btn btn-primary"
                     onClick={

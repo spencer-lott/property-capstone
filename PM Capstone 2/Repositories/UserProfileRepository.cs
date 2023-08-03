@@ -16,7 +16,7 @@ namespace PropertyManager.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, Email, IsEmployee, IsAdmin 
+                        SELECT Id, FirstName, LastName, Email, IsEmployee, IsAdmin 
                         FROM UserProfile
                         ";
 
@@ -28,9 +28,11 @@ namespace PropertyManager.Repositories
                         userProfiles.Add(new UserProfile()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
+                            FirstName = DbUtils.GetString(reader, "FirstName"),
+                            LastName = DbUtils.GetString(reader, "LastName"),
                             Email = DbUtils.GetString(reader, "Email"),
                             IsEmployee = reader.GetBoolean(reader.GetOrdinal("IsEmployee")),
-                            IsAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin")),
+                            IsAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin"))
                         });
                     }
 
@@ -49,7 +51,7 @@ namespace PropertyManager.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, Email, IsEmployee, IsAdmin 
+                        SELECT Id, FirstName, LastName, Email, IsEmployee, IsAdmin 
                         FROM UserProfile
                         WHERE Id = @id";
 
@@ -63,6 +65,8 @@ namespace PropertyManager.Repositories
                         userProfile = new UserProfile()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
+                            FirstName = DbUtils.GetString(reader, "FirstName"),
+                            LastName = DbUtils.GetString(reader, "LastName"),
                             Email = DbUtils.GetString(reader, "Email"),
                             IsEmployee = reader.GetBoolean(reader.GetOrdinal("IsEmployee")),
                             IsAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin"))
@@ -85,7 +89,7 @@ namespace PropertyManager.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, Email, IsEmployee, IsAdmin 
+                        SELECT Id, FirstName, LastName, Email, IsEmployee, IsAdmin 
                         FROM UserProfile
                          WHERE Email = @email";
 
@@ -99,6 +103,8 @@ namespace PropertyManager.Repositories
                         userProfile = new UserProfile()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
+                            FirstName = DbUtils.GetString(reader, "FirstName"),
+                            LastName = DbUtils.GetString(reader, "LastName"),
                             Email = DbUtils.GetString(reader, "Email"),
                             IsEmployee = reader.GetBoolean(reader.GetOrdinal("IsEmployee")),
                             IsAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin"))
@@ -120,9 +126,11 @@ namespace PropertyManager.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO UserProfile (Email, IsEmployee, IsAdmin)
+                        INSERT INTO UserProfile (FirstName, LastName, Email, IsEmployee, IsAdmin)
                         OUTPUT INSERTED.ID
-                        VALUES (@Email, @IsEmployee, @IsAdmin)";
+                        VALUES (@FirstName, @LastName, @Email, @IsEmployee, @IsAdmin)";
+                    DbUtils.AddParameter(cmd, "@FirstName", userProfile.FirstName);
+                    DbUtils.AddParameter(cmd, "@LastName", userProfile.LastName);
                     DbUtils.AddParameter(cmd, "@Email", userProfile.Email);
                     DbUtils.AddParameter(cmd, "@IsEmployee", userProfile.IsEmployee);
                     DbUtils.AddParameter(cmd, "@IsAdmin", userProfile.IsAdmin);
@@ -154,11 +162,15 @@ namespace PropertyManager.Repositories
                 {
                     cmd.CommandText = @"
                         UPDATE UserProfile
-                           SET Email = @Email,
+                           SET FirstName = @FirstName,
+                               LastName = @LastName,
+                               Email = @Email,
                                IsEmployee = @IsEmployee,
                                IsAdmin = @IsAdmin
                          WHERE Id = @Id";
 
+                    DbUtils.AddParameter(cmd, "@FirstName", userProfile.FirstName);
+                    DbUtils.AddParameter(cmd, "@LastName", userProfile.LastName);
                     DbUtils.AddParameter(cmd, "@Email", userProfile.Email);
                     DbUtils.AddParameter(cmd, "@IsEmployee", userProfile.IsEmployee);
                     DbUtils.AddParameter(cmd, "@IsAdmin", userProfile.IsAdmin);

@@ -21,7 +21,7 @@ namespace PropertyManager.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, FirstName, LastName, Phone, Employment, EmergencyContactName, EmergencyContactPhone, GeneralNotes, PropertyId, UserProfileId
+                        SELECT Id, Phone, Employment, EmergencyContactName, EmergencyContactPhone, GeneralNotes, PropertyId, UserProfileId
                         FROM Tenant
                         ORDER BY LastName ASC
                         ";
@@ -34,8 +34,6 @@ namespace PropertyManager.Repositories
                         tenants.Add(new Tenant()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
-                            FirstName = DbUtils.GetString(reader, "FirstName"),
-                            LastName = DbUtils.GetString(reader, "LastName"),
                             Phone = DbUtils.GetString(reader, "Phone"),
                             Employment = DbUtils.GetString(reader, "Employment"),
                             EmergencyContactName = DbUtils.GetString(reader, "EmergencyContactName"),
@@ -60,7 +58,7 @@ namespace PropertyManager.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT t.Id AS TId, t.FirstName, t.LastName, t.Phone, t.Employment, t.EmergencyContactName, t.EmergencyContactPhone, t.GeneralNotes, t.PropertyId, t.UserProfileId, p.Id AS PId, p.StreetAddress FROM Tenant t
+                        SELECT t.Id AS TId, t.Phone, t.Employment, t.EmergencyContactName, t.EmergencyContactPhone, t.GeneralNotes, t.PropertyId, t.UserProfileId, p.Id AS PId, p.StreetAddress FROM Tenant t
                         LEFT JOIN Property p ON p.id = t.PropertyId
                         WHERE t.id = @id";
 
@@ -74,8 +72,6 @@ namespace PropertyManager.Repositories
                         tenant = new Tenant()
                         {
                             Id = DbUtils.GetInt(reader, "TId"),
-                            FirstName = DbUtils.GetString(reader, "FirstName"),
-                            LastName = DbUtils.GetString(reader, "LastName"),
                             Phone = DbUtils.GetString(reader, "Phone"),
                             Employment = DbUtils.GetString(reader, "Employment"),
                             EmergencyContactName = DbUtils.GetString(reader, "EmergencyContactName"),
@@ -105,11 +101,10 @@ namespace PropertyManager.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO Tenant (FirstName, LastName, Phone, Employment, EmergencyContactName, EmergencyContactPhone, GeneralNotes, PropertyId, UserProfileId )
+                        INSERT INTO Tenant (Phone, Employment, EmergencyContactName, EmergencyContactPhone, GeneralNotes, PropertyId, UserProfileId )
                         OUTPUT INSERTED.ID
-                        VALUES (@FirstName, @LastName, @Phone, @Employment, @EmergencyContactName, @EmergencyContactPhone, @GeneralNotes, @PropertyId, @UserProfileId )";
-                    DbUtils.AddParameter(cmd, "@FirstName", tenant.FirstName);
-                    DbUtils.AddParameter(cmd, "@LastName", tenant.LastName);
+                        VALUES (@Phone, @Employment, @EmergencyContactName, @EmergencyContactPhone, @GeneralNotes, @PropertyId, @UserProfileId )";
+
                     DbUtils.AddParameter(cmd, "@Phone", tenant.Phone);
                     DbUtils.AddParameter(cmd, "@Employment", tenant.Employment);
                     DbUtils.AddParameter(cmd, "@EmergencyContactName", tenant.EmergencyContactName);
@@ -145,9 +140,7 @@ namespace PropertyManager.Repositories
                 {
                     cmd.CommandText = @"
                         UPDATE Tenant
-                           SET FirstName = @FirstName,
-                               LastName = @LastName,
-                               Phone = @Phone,
+                           SET Phone = @Phone,
                                Employment = @Employment,
                                EmergencyContactName = @EmergencyContactName,
                                EmergencyContactPhone = @EmergencyContactPhone,
@@ -157,8 +150,6 @@ namespace PropertyManager.Repositories
 
                          WHERE Id = @Id";
 
-                    DbUtils.AddParameter(cmd, "@FirstName", tenant.FirstName);
-                    DbUtils.AddParameter(cmd, "@LastName", tenant.LastName);
                     DbUtils.AddParameter(cmd, "@Phone", tenant.Phone);
                     DbUtils.AddParameter(cmd, "@Employment", tenant.Employment);
                     DbUtils.AddParameter(cmd, "@EmergencyContactName", tenant.EmergencyContactName);
