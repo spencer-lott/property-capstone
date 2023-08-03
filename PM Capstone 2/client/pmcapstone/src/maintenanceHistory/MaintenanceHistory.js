@@ -15,7 +15,7 @@ export const MaintenanceHistory = ({ note, setNotes, property }) => {
         for (let i = 0; i < users.length; i++) {
             const user = users[i]
             if (user.id === note.userProfileId){
-                return user.email
+                return `${user.lastName} ${user.firstName} on`
             }
         }
     }

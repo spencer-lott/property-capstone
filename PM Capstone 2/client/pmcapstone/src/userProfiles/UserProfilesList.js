@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
-import { getAllUserProfiles } from "../Managers/UserProfileManager"
+import {  getAllUserProfiles } from "../Managers/UserProfileManager"
 import { Button, Col, Container, Row, Table } from "reactstrap";
 import { UserProfile } from "./UserProfile";
+import { useNavigate } from "react-router-dom";
 
 export const UserProfilesList = () => {
+    const navigate = useNavigate()
     const [users, setUsers] = useState([])
 
     const getUsers = () => {
@@ -15,16 +17,16 @@ export const UserProfilesList = () => {
         getUsers()
     }, [])
 
-    // const create = () => {
-    //     navigate("/properties/add")
-    // }
+    const create = () => {
+        navigate("/users/add")
+    }
 
 
     return (<>
         <Container fluid className="users-list">
             <Row>
                 <Col>
-                {/* <Button onClick={create}>Create New</Button> */}
+                <Button onClick={create}>Create New</Button>
                 </Col>
                 <Col>
                     {/* search input */}
@@ -35,12 +37,13 @@ export const UserProfilesList = () => {
                 <Table>
                 <thead>
                 <tr>
+                    <th>Full Name</th>
                     <th>Email</th>
                     <th>User Type</th>
                 </tr>
                 </thead>
                 {users.map((user) => {
-                return  <UserProfile key={user.id} user={user} />
+                return  <UserProfile key={user.id} user={user} setUsers={setUsers}/>
               })}
 
                 </Table>
