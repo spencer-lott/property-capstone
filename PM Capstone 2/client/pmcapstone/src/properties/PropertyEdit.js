@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Button, Form, FormGroup, InputGroup } from "react-bootstrap"
 import { useNavigate, useParams } from "react-router-dom"
 import { Input, Label } from "reactstrap"
-import { editProperty, getPropertyById } from "../Managers/PropertiesManager"
+import { editProperty, getPropertyById } from "../APIManagers/PropertiesManager"
 
 export const PropertyEdit = () => {
     const navigate = useNavigate()

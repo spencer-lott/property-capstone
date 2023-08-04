@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react"
 import {useNavigate, useParams} from "react-router-dom"
-import {editMaintenanceHistory, getMaintenanceHistoryById} from "../Managers/MaintenanceHistoryManager"
-import {getPropertyById} from "../Managers/PropertiesManager"
+import {editMaintenanceHistory, getMaintenanceHistoryById} from "../APIManagers/MaintenanceHistoryManager"
+import {getPropertyById} from "../APIManagers/PropertiesManager"
 
 export const MaintenanceHistoryEdit = () => {
     const localPMUser = localStorage.getItem("userProfile")

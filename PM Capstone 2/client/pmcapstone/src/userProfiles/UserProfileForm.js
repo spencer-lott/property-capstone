@@ -1,5 +1,5 @@
 import {useState} from "react"
-import { addUserProfile } from "../Managers/UserProfileManager"
+import { addUserProfile } from "../APIManagers/UserProfileManager"
 import { useNavigate } from "react-router-dom"
 
 export const UserProfileForm = () => {

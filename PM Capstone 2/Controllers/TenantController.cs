@@ -22,6 +22,14 @@ namespace PropertyManager.Controllers
             return Ok(tenants);
         }
 
+        [HttpGet("GetAllTenantsWithPropertyAndUserProfile")]
+        public IActionResult GetAllTenantsWithPropertyAndUserProfile()
+        {
+            var tenants = _tenantRepository.GetAllTenantsWithPropertyAndUserProfile();
+            return Ok(tenants);
+        }
+
+
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {

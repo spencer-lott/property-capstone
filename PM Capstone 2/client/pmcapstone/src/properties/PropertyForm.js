@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { addProperty } from "../Managers/PropertiesManager"
+import { addProperty } from "../APIManagers/PropertiesManager"
 
 export const PropertiesForm = () => {
     const navigate = useNavigate()

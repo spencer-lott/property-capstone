@@ -30,5 +30,7 @@ namespace PropertyManager.Models
 
         public Property? Property { get; set; }
 
+        public UserProfile? UserProfile { get; set; }
+
     }
 }

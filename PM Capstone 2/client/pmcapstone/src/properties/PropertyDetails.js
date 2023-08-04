@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { deleteProperty, getPropertyById } from "../Managers/PropertiesManager";
+import { deleteProperty, getPropertyById } from "../APIManagers/PropertiesManager";
 import { Alert, Button, Col, Container, Row, Table } from "react-bootstrap";
-import { getMaintenanceHistoryByPropertyId } from "../Managers/MaintenanceHistoryManager";
+import { getMaintenanceHistoryByPropertyId } from "../APIManagers/MaintenanceHistoryManager";
 import { MaintenanceHistory } from "../maintenanceHistory/MaintenanceHistory";
-import { getAllUserProfiles } from "../Managers/UserProfileManager";
+import { getAllUserProfiles } from "../APIManagers/UserProfileManager";
 
 export const PropertyDetails = () => {
     const [property, setProperty] = useState();

@@ -29,7 +29,6 @@ export const deleteProperty = (id) => {
   };
 
   export const editProperty = (property) => {
-    console.log(property)
     return fetch(`/api/property/${property.Id}`, {
         method: "PUT",
         headers: {

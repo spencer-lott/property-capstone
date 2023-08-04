@@ -23,7 +23,6 @@ export const deleteMaintenanceHistory = (id) => {
   };
 
   export const editMaintenanceHistory = (maintenanceHistory) => {
-    console.log(maintenanceHistory)
     return fetch(`/api/MaintenanceHistory/${maintenanceHistory.Id}`, {
         method: "PUT",
         headers: {
