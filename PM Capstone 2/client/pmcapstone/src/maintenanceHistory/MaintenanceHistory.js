@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
-import { getAllUserProfiles } from "../Managers/UserProfileManager"
-import { deleteMaintenanceHistory, getMaintenanceHistoryByPropertyId } from "../Managers/MaintenanceHistoryManager"
+import { getAllUserProfiles } from "../APIManagers/UserProfileManager"
+import { deleteMaintenanceHistory, getMaintenanceHistoryByPropertyId } from "../APIManagers/MaintenanceHistoryManager"
 
 export const MaintenanceHistory = ({ note, setNotes, property }) => {
     const {id} = useParams()

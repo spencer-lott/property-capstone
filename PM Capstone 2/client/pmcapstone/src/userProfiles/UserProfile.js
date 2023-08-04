@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom"
-import { deleteUserProfile } from "../Managers/UserProfileManager"
+import { deleteUserProfile } from "../APIManagers/UserProfileManager"
 import { Alert, Button } from "react-bootstrap";
 import { useState } from "react"
 

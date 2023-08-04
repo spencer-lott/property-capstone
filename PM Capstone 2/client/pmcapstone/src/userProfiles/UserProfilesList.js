@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import {  getAllUserProfiles } from "../Managers/UserProfileManager"
+import {  getAllUserProfiles } from "../APIManagers/UserProfileManager"
 import { Button, Col, Container, Row, Table } from "reactstrap";
 import { UserProfile } from "./UserProfile";
 import { useNavigate } from "react-router-dom";

@@ -1,6 +1,6 @@
 import {useState} from "react"
 import {useNavigate, useParams} from "react-router-dom"
-import {addMaintenanceHistory} from "../Managers/MaintenanceHistoryManager"
+import {addMaintenanceHistory} from "../APIManagers/MaintenanceHistoryManager"
 
 export const MaintenanceHistoryForm = () => {
     const localPMUser = localStorage.getItem("userProfile")

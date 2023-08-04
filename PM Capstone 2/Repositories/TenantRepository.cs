@@ -23,7 +23,7 @@ namespace PropertyManager.Repositories
                     cmd.CommandText = @"
                         SELECT Id, Phone, Employment, EmergencyContactName, EmergencyContactPhone, GeneralNotes, PropertyId, UserProfileId
                         FROM Tenant
-                        ORDER BY LastName ASC
+                        ORDER BY Id ASC
                         ";
 
                     var reader = cmd.ExecuteReader();
@@ -39,7 +39,8 @@ namespace PropertyManager.Repositories
                             EmergencyContactName = DbUtils.GetString(reader, "EmergencyContactName"),
                             EmergencyContactPhone = DbUtils.GetString(reader, "EmergencyContactPhone"),
                             GeneralNotes = DbUtils.GetString(reader, "GeneralNotes"),
-                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            PropertyId = DbUtils.GetInt(reader, "PropertyId"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
                         });
                     }
 
@@ -58,8 +59,10 @@ namespace PropertyManager.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT t.Id AS TId, t.Phone, t.Employment, t.EmergencyContactName, t.EmergencyContactPhone, t.GeneralNotes, t.PropertyId, t.UserProfileId, p.Id AS PId, p.StreetAddress FROM Tenant t
-                        LEFT JOIN Property p ON p.id = t.PropertyId
+                        SELECT t.Id AS TId, t.Phone, t.Employment, t.EmergencyContactName, t.EmergencyContactPhone, t.GeneralNotes, t.PropertyId, t.UserProfileId, p.Id AS PId, p.StreetAddress, p.City, p.State, p.Type, p.SizeDescription, p.Rent, p.Vacant, u.Id AS UId, u.FirstName, u.LastName, u.Email, u.IsEmployee, u.IsAdmin
+                        FROM Tenant t
+                        LEFT JOIN Property p ON p.Id = t.PropertyId
+                        LEFT JOIN UserProfile u ON u.Id = t.UserProfileId
                         WHERE t.id = @id";
 
                     DbUtils.AddParameter(cmd, "@id", id);
@@ -82,7 +85,22 @@ namespace PropertyManager.Repositories
                             Property = new Property()
                             {
                                 Id = DbUtils.GetInt(reader, "PId"),
-                                StreetAddress = DbUtils.GetString(reader, "StreetAddress")
+                                StreetAddress = DbUtils.GetString(reader, "StreetAddress"),
+                                City = DbUtils.GetString(reader, "City"),
+                                State = DbUtils.GetString(reader, "State"),
+                                Type = DbUtils.GetString(reader, "Type"),
+                                SizeDescription = DbUtils.GetString(reader, "SizeDescription"),
+                                Rent = DbUtils.GetInt(reader, "Rent"),
+                                Vacant = reader.GetBoolean(reader.GetOrdinal("Vacant"))
+                            },
+                            UserProfile = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "UId"),
+                                FirstName = DbUtils.GetString(reader, "FirstName"),
+                                LastName = DbUtils.GetString(reader, "LastName"),
+                                Email = DbUtils.GetString(reader, "Email"),
+                                IsEmployee = reader.GetBoolean(reader.GetOrdinal("IsEmployee")),
+                                IsAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin"))
                             }
                         };
                     }
@@ -92,6 +110,67 @@ namespace PropertyManager.Repositories
                 }
             }
         }
+
+        public List<Tenant> GetAllTenantsWithPropertyAndUserProfile()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT t.Id AS TId, t.Phone, t.Employment, t.EmergencyContactName, t.EmergencyContactPhone, t.GeneralNotes, t.PropertyId, t.UserProfileId, p.Id AS PId, p.StreetAddress, p.City, p.State, p.Type, p.SizeDescription, p.Rent, p.Vacant, u.Id AS UId, u.FirstName, u.LastName, u.Email, u.IsEmployee, u.IsAdmin
+                        FROM Tenant t
+                        LEFT JOIN Property p ON p.Id = t.PropertyId
+                        LEFT JOIN UserProfile u ON u.Id = t.UserProfileId
+                        ORDER BY LastName ASC
+                        ";
+
+                    var reader = cmd.ExecuteReader();
+
+                    var tenants = new List<Tenant>();
+                    while (reader.Read())
+                    {
+                        tenants.Add(new Tenant()
+                        {
+                            Id = DbUtils.GetInt(reader, "TId"),
+                            Phone = DbUtils.GetString(reader, "Phone"),
+                            Employment = DbUtils.GetString(reader, "Employment"),
+                            EmergencyContactName = DbUtils.GetString(reader, "EmergencyContactName"),
+                            EmergencyContactPhone = DbUtils.GetString(reader, "EmergencyContactPhone"),
+                            GeneralNotes = DbUtils.GetString(reader, "GeneralNotes"),
+                            PropertyId = DbUtils.GetInt(reader, "PropertyId"),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            Property = new Property()
+                            {
+                                Id = DbUtils.GetInt(reader, "PId"),
+                                StreetAddress = DbUtils.GetString(reader, "StreetAddress"),
+                                City = DbUtils.GetString(reader, "City"),
+                                State = DbUtils.GetString(reader, "State"),
+                                Type = DbUtils.GetString(reader, "Type"),
+                                SizeDescription = DbUtils.GetString(reader, "SizeDescription"),
+                                Rent = DbUtils.GetInt(reader, "Rent"),
+                                Vacant = reader.GetBoolean(reader.GetOrdinal("Vacant"))
+                            },
+                            UserProfile = new UserProfile()
+                            {
+                                Id = DbUtils.GetInt(reader, "UId"),
+                                FirstName = DbUtils.GetString(reader, "FirstName"),
+                                LastName = DbUtils.GetString(reader, "LastName"),
+                                Email = DbUtils.GetString(reader, "Email"),
+                                IsEmployee = reader.GetBoolean(reader.GetOrdinal("IsEmployee")),
+                                IsAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin"))
+                            }
+                        });
+                    }
+
+                    reader.Close();
+
+                    return tenants;
+                }
+            }
+        }
+
 
         public void Add(Tenant tenant)
         {

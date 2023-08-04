@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { editUserProfile, getUserProfileById } from "../Managers/UserProfileManager"
+import { editUserProfile, getUserProfileById } from "../APIManagers/UserProfileManager"
 
 export const UserProfileEdit = () => {
     const navigate = useNavigate()
