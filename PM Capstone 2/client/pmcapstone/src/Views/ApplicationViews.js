@@ -24,7 +24,7 @@ export const ApplicationViews = () => {
         <Route path="/maintenance-history/edit/:noteId/:mhpropertyId" element={ <MaintenanceHistoryEdit />} />
         <Route path="/users" element={<UserProfilesList />} />
         <Route path="/users/add" element={<UserProfileForm />} />
-        <Route path="/users/edit/:id" element={<UserProfileEdit />} />
+        <Route path="/users/edit/:userId" element={<UserProfileEdit />} />
 
         </Routes>
     )
