@@ -51,6 +51,7 @@ export const UserProfile = ({ user, setUsers }) => {
                 <td>{user.lastName}, {user.firstName}</td>
                 <td> {user.email} </td>
                 {userType()}
+                <Button onClick={() => navigate(`/users/edit/${user.id}`)}>Edit</Button>
                 <Button variant="danger" type="delete"onClick={() => {setShowAlert(true)}}> 
                 Delete
                 </Button>

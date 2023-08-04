@@ -12,7 +12,7 @@ export const UserProfilesList = () => {
         getAllUserProfiles().then(allUsers => setUsers(allUsers))
     }
     
-    console.log(users)
+    // console.log(users)
     useEffect(() => {
         getUsers()
     }, [])
@@ -20,7 +20,6 @@ export const UserProfilesList = () => {
     const create = () => {
         navigate("/users/add")
     }
-
 
     return (<>
         <Container fluid className="users-list">
