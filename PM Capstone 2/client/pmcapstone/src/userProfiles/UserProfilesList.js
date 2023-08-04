@@ -17,15 +17,21 @@ export const UserProfilesList = () => {
         getUsers()
     }, [])
 
-    const create = () => {
-        navigate("/users/add")
+    const createEmployee = () => {
+        navigate("/users/add-employee")
     }
+
+    const createTenant = () => {
+        navigate("/users/add-tenant")
+    }
+
 
     return (<>
         <Container fluid className="users-list">
             <Row>
                 <Col>
-                <Button onClick={create}>Create New</Button>
+                <Button onClick={createEmployee}>New Employee</Button>
+                <Button onClick={createTenant}>New Tenant</Button>
                 </Col>
                 <Col>
                     {/* search input */}

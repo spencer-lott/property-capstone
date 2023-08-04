@@ -11,15 +11,15 @@ export const getAllTenantsWithPropertyAndUserProfile = () => {
     return fetch(`/api/Tenant/${id}`).then((res) => res.json())
   }
   
-//   export const addUserProfile = (singleProfile) => {
-//     return fetch(baseUrl, {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify(singleProfile)
-//     });
-//   }
+  export const addTenant = (singleTenant) => {
+    return fetch(baseUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(singleTenant)
+    });
+  }
   
 //   export const deleteUserProfile = (id) => {
 //     return fetch(`/api/userProfile/${id}`, {

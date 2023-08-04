@@ -2,15 +2,15 @@ import {useState} from "react"
 import { addUserProfile } from "../APIManagers/UserProfileManager"
 import { useNavigate } from "react-router-dom"
 
-export const UserProfileForm = () => {
+export const NewEmployeeForm = () => {
     const navigate = useNavigate()
     const [user, update] = useState({
         firstName: "",
         lastName: "",
         email: "",
         isEmployee: false,
-        isAdmin: false})
-
+        isAdmin: false
+    })
 
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
@@ -30,7 +30,7 @@ export const UserProfileForm = () => {
             <div>
                 <h1>Create a new user profile</h1>
                 <form className="user-profile-form">
-                    <h2 className="user-profile-form">New User</h2>
+                    <h2 className="user-profile-form">New Employee</h2>
 
                     <fieldset>
                         <div className="form-group">
