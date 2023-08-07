@@ -28,8 +28,7 @@ namespace PropertyManager.Models
         [Required]
         public bool Vacant { get; set; }
 
-        public Tenant? Tenant { get; set; }
-
+        public int UserProfileId { get; set; }
     }
 }
 

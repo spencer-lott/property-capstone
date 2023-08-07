@@ -27,6 +27,17 @@ namespace PropertyManager.Models
                 return $"{LastName}, {FirstName}";
             }
         }
+        public string Phone { get; set; }
+
+        public string Employment { get; set; }
+
+        public string EmergencyContactName { get; set; }
+
+        public string EmergencyContactPhone { get; set; }
+
+        public string GeneralNotes { get; set; }
+
+        public Property? Property { get; set; }
 
 
     }
