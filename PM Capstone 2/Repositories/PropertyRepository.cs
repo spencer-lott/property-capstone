@@ -6,6 +6,7 @@ using PropertyManager.Models;
 using PropertyManager.Utils;
 using System.Data;
 using Microsoft.Extensions.Hosting;
+using System.Reflection.PortableExecutable;
 
 namespace PropertyManager.Repositories
 {
@@ -21,7 +22,7 @@ namespace PropertyManager.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, StreetAddress, City, State, Type, SizeDescription, Rent, Vacant 
+                        SELECT Id, StreetAddress, City, State, Type, SizeDescription, Rent, Vacant, UserProfileId 
                         FROM Property
                         ORDER BY State ASC
                         ";
@@ -40,7 +41,8 @@ namespace PropertyManager.Repositories
                             Type = DbUtils.GetString(reader, "Type"),
                             SizeDescription = DbUtils.GetString(reader, "SizeDescription"),
                             Rent = DbUtils.GetInt(reader, "Rent"),
-                            Vacant = reader.GetBoolean(reader.GetOrdinal("Vacant"))
+                            Vacant = reader.GetBoolean(reader.GetOrdinal("Vacant")),
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
                         });
                     }
 
@@ -59,9 +61,9 @@ namespace PropertyManager.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT p.Id AS PId, p.StreetAddress, p.City, p.State, p.Type, p.SizeDescription, p.Rent, p.Vacant, COALESCE(t.Id, -1) as TId, COALESCE(t.PropertyId, -1) AS TPropertyId
+                        SELECT p.Id AS PId, p.StreetAddress, p.City, p.State, p.Type, p.SizeDescription, p.Rent, p.Vacant, COALESCE(u.Id, -1) as UId, COALESCE(p.UserProfileId, -1) AS UserProfileId
                         FROM Property p
-                        LEFT JOIN Tenant t ON p.Id = t.PropertyId
+                        LEFT JOIN UserProfile u ON p.UserProfileId = u.Id
                         WHERE p.Id = @id";
 
                     DbUtils.AddParameter(cmd, "@id", id);
@@ -81,10 +83,10 @@ namespace PropertyManager.Repositories
                             SizeDescription = DbUtils.GetString(reader, "SizeDescription"),
                             Rent = DbUtils.GetInt(reader, "Rent"),
                             Vacant = reader.GetBoolean(reader.GetOrdinal("Vacant")),
-                            Tenant = new Tenant()
+                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                            UserProfile = new UserProfile()
                             {
-                                Id = DbUtils.GetInt(reader, "TId"),
-                                PropertyId = DbUtils.GetInt(reader, "TPropertyId")
+                                Id = DbUtils.GetInt(reader, "UId"),
                             }
                         };
 
@@ -106,9 +108,9 @@ namespace PropertyManager.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO Property (StreetAddress, City, State, Type, SizeDescription, Rent, Vacant)
+                        INSERT INTO Property (StreetAddress, City, State, Type, SizeDescription, Rent, Vacant, UserProfileId)
                         OUTPUT INSERTED.ID
-                        VALUES (@StreetAddress, @City, @State, @Type, @SizeDescription, @Rent, @Vacant)";
+                        VALUES (@StreetAddress, @City, @State, @Type, @SizeDescription, @Rent, @Vacant, @UserProfileId)";
                     DbUtils.AddParameter(cmd, "@StreetAddress", property.StreetAddress);
                     DbUtils.AddParameter(cmd, "@City", property.City);
                     DbUtils.AddParameter(cmd, "@State", property.State);
@@ -116,6 +118,7 @@ namespace PropertyManager.Repositories
                     DbUtils.AddParameter(cmd, "@SizeDescription", property.SizeDescription);
                     DbUtils.AddParameter(cmd, "@Rent", property.Rent);
                     DbUtils.AddParameter(cmd, "@Vacant", property.Vacant);
+                    DbUtils.AddParameter(cmd, "@UserProfileId", property.UserProfileId);
                     property.Id = (int)cmd.ExecuteScalar();
                 }
             }
@@ -150,7 +153,8 @@ namespace PropertyManager.Repositories
                                Type = @Type,
                                SizeDescription = @SizeDescription,
                                Rent = @Rent,
-                               Vacant = @Vacant
+                               Vacant = @Vacant,
+                               UserProfileId = @UserProfileId
 
                          WHERE Id = @Id";
 
@@ -161,6 +165,7 @@ namespace PropertyManager.Repositories
                     DbUtils.AddParameter(cmd, "@SizeDescription", property.SizeDescription);
                     DbUtils.AddParameter(cmd, "@Rent", property.Rent);
                     DbUtils.AddParameter(cmd, "@Vacant", property.Vacant);
+                    DbUtils.AddParameter(cmd, "@UserProfileId", property.UserProfileId);
                     DbUtils.AddParameter(cmd, "@Id", property.Id);
 
                     cmd.ExecuteNonQuery();

@@ -47,7 +47,6 @@ namespace PropertyManager.Repositories
                 }
             }
         }
-
         public UserProfile GetById(int id)
         {
             using (var conn = Connection)
@@ -56,9 +55,8 @@ namespace PropertyManager.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT u.Id AS UId, u.FirstName, u.LastName, u.Email, u.IsEmployee, u.IsAdmin, u.Phone, u.Employment, u.EmergencyContactName, u.EmergencyContactPhone, u.GeneralNotes, p.Id AS PId, p.StreetAddress, p.City, p.State, p.Type, p.SizeDescription, p.Rent, p.Vacant, p.UserProfileId 
-                        FROM UserProfile u
-                        LEFT JOIN Property p ON u.Id = p.UserProfileId
+                        SELECT Id, FirstName, LastName, Email, IsEmployee, IsAdmin, Phone, Employment, EmergencyContactName, EmergencyContactPhone, GeneralNotes 
+                        FROM UserProfile
                         WHERE Id = @id";
 
                     DbUtils.AddParameter(cmd, "@id", id);
@@ -71,6 +69,50 @@ namespace PropertyManager.Repositories
                         userProfile = new UserProfile()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
+                            FirstName = DbUtils.GetString(reader, "FirstName"),
+                            LastName = DbUtils.GetString(reader, "LastName"),
+                            Email = DbUtils.GetString(reader, "Email"),
+                            IsEmployee = reader.GetBoolean(reader.GetOrdinal("IsEmployee")),
+                            IsAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin")),
+                            Phone = DbUtils.GetString(reader, "Phone"),
+                            Employment = DbUtils.GetString(reader, "Employment"),
+                            EmergencyContactName = DbUtils.GetString(reader, "EmergencyContactName"),
+                            EmergencyContactPhone = DbUtils.GetString(reader, "EmergencyContactPhone"),
+                            GeneralNotes = DbUtils.GetString(reader, "GeneralNotes")
+
+                        };
+
+                    }
+                    reader.Close();
+
+                    return userProfile;
+                }
+            }
+        }
+
+        public UserProfile GetTenantById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT u.Id AS UId, u.FirstName, u.LastName, u.Email, u.IsEmployee, u.IsAdmin, u.Phone, u.Employment, u.EmergencyContactName, u.EmergencyContactPhone, u.GeneralNotes, p.Id AS PId, p.StreetAddress, p.City, p.State, p.Type, p.SizeDescription, p.Rent, p.Vacant, p.UserProfileId 
+                        FROM UserProfile u
+                        LEFT JOIN Property p ON u.Id = p.UserProfileId
+                        WHERE u.Id = @id";
+
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    UserProfile userProfile = null;
+                    if (reader.Read())
+                    {
+                        userProfile = new UserProfile()
+                        {
+                            Id = DbUtils.GetInt(reader, "UId"),
                             FirstName = DbUtils.GetString(reader, "FirstName"),
                             LastName = DbUtils.GetString(reader, "LastName"),
                             Email = DbUtils.GetString(reader, "Email"),
