@@ -28,7 +28,7 @@ namespace PropertyManager.Models
         [Required]
         public bool Vacant { get; set; }
 
-        public int UserProfileId { get; set; }
+        public int? UserProfileId { get; set; }
 
         public UserProfile? UserProfile { get; set; }
     }

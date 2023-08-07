@@ -42,7 +42,7 @@ namespace PropertyManager.Repositories
                             SizeDescription = DbUtils.GetString(reader, "SizeDescription"),
                             Rent = DbUtils.GetInt(reader, "Rent"),
                             Vacant = reader.GetBoolean(reader.GetOrdinal("Vacant")),
-                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
+                            UserProfileId = DbUtils.GetNullableInt(reader, "UserProfileId")
                         });
                     }
 

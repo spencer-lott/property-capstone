@@ -196,7 +196,7 @@ namespace PropertyManager.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO UserProfile (FirstName, LastName, Email, IsEmployee, IsAdmin)
+                        INSERT INTO UserProfile (FirstName, LastName, Email, IsEmployee, IsAdmin, Phone, Employment, EmergencyContactName, EmergencyContactPhone, GeneralNotes)
                         OUTPUT INSERTED.ID
                         VALUES (@FirstName, @LastName, @Email, @IsEmployee, @IsAdmin, @Phone, @Employment, @EmergencyContactName, @EmergencyContactPhone, @GeneralNotes)";
                     DbUtils.AddParameter(cmd, "@FirstName", userProfile.FirstName);
