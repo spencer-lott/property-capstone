@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react"
 import {useNavigate} from "react-router-dom"
 import {addTenant} from "../APIManagers/TenantManager"
-import {addUserProfile} from "../APIManagers/UserProfileManager"
+import {addUserProfile, getAllUserProfiles} from "../APIManagers/UserProfileManager"
 import { getAllProperties } from "../APIManagers/PropertiesManager"
 
 export const NewTenantForm = () => {
@@ -12,6 +12,14 @@ export const NewTenantForm = () => {
         getProperties();
     },[])
 
+    const getUserProfiles = () => {
+        getAllUserProfiles().then(allUserProfiles => setUserProfiles(allUserProfiles));
+    }
+    // useEffect(() => {
+    //     getUserProfiles();
+    // },[])
+
+    const [userProfiles, setUserProfiles] = useState([])
     const [properties, setProperties] = useState([])
     const navigate = useNavigate()
     const [user, updateUser] = useState({
@@ -32,48 +40,45 @@ export const NewTenantForm = () => {
     })
 
     const handleSaveButtonClick = (event) => {
-        event.preventDefault()
-
+        event.preventDefault();
+    
         const userToSendToAPI = {
             FirstName: user.firstName,
             LastName: user.lastName,
             Email: user.email,
             IsEmployee: user.isEmployee,
             IsAdmin: user.isAdmin
-        }
-
-        const tenantToSendToAPI = {
-            Phone: tenant.phone,
-            Employment: tenant.employment,
-            EmergencyContactName: tenant.emergencyContactName,
-            EmergencyContactPhone: tenant.emergencyContactPhone,
-            GeneralNotes: tenant.generalNotes,
-            PropertyId: tenant.propertyId,
-            UserProfileId: 0 // NEED TO FIGURE OUT HOW TO GET THIS INFO AND SEND IT TO THE DATABASE!!! WHAT I HAVE DOESN'T WORK
-        }
-
-        // return addUserProfile(userToSendToAPI)
-        // .then(() => addTenant(tenantToSendToAPI))
-        // .then(navigate(`/users`))
-
-        //chat gpt stuff
-        // return addUserProfile(userToSendToAPI)
-        // .then((createdUserProfile) => {
-        //     tenantToSendToAPI.UserProfileId = createdUserProfile.id; // Update the UserProfileId
-        //     console.log(createdUserProfile)
-        //     return addTenant(tenantToSendToAPI);
-        // })
-        // .then(() => navigate(`/users`));
-
-    }
-
-    // const selectProperty = (event) => {
-    //     const copy = {
-    //         ...tenant
-    //     }
-    //     copy.id = event.target.value
-    //     updateTenant(copy)
-    // }
+        };
+    
+        addUserProfile(userToSendToAPI)
+            .then((newUserProfile) => {
+                console.log("New user profile:", newUserProfile); // Log the new user profile data
+    
+                const tenantToSendToAPI = {
+                    Phone: tenant.phone,
+                    Employment: tenant.employment,
+                    EmergencyContactName: tenant.emergencyContactName,
+                    EmergencyContactPhone: tenant.emergencyContactPhone,
+                    GeneralNotes: tenant.generalNotes,
+                    PropertyId: tenant.propertyId,
+                    UserProfileId: newUserProfile.id // Use the newly created user profile ID
+                };
+    
+                console.log("Tenant to send:", tenantToSendToAPI); // Log the tenant data with the user profile ID
+    
+                return addTenant(tenantToSendToAPI);
+            })
+            .then(() => {
+                console.log("Tenant added successfully!");
+                navigate(`/users`);
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                // Handle error if needed
+            });
+    };
+            
+    
     const selectProperty = (event) => {
         const selectedPropertyId = parseInt(event.target.value);
         const selectedProperty = properties.find(property => property.id === selectedPropertyId);

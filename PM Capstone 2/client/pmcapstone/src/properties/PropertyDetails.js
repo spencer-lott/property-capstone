@@ -5,6 +5,7 @@ import { Alert, Button, Col, Container, Row, Table } from "react-bootstrap";
 import { getMaintenanceHistoryByPropertyId } from "../APIManagers/MaintenanceHistoryManager";
 import { MaintenanceHistory } from "../maintenanceHistory/MaintenanceHistory";
 import { getAllUserProfiles } from "../APIManagers/UserProfileManager";
+import { getAllTenantsWithPropertyAndUserProfile } from "../APIManagers/TenantManager";
 
 export const PropertyDetails = () => {
     const [property, setProperty] = useState();
@@ -14,27 +15,21 @@ export const PropertyDetails = () => {
     const localPMUser = localStorage.getItem("userProfile");
     const PMUserObject = JSON.parse(localPMUser);
     const [notes, setNotes] = useState([])
-    const [users, setUsers] = useState([])
+    const [tenants, setTenants] = useState([])
 
     
-    // const tenantOrNoTenant = () => {
-    //     for (let i = 0; i < users.length; i++) {
-    //         const user = users[i]
-    //         // if (user?.tenant.propertyId === property.id){
-    //             //     // console.log(users)
-    //             //     return `${user.lastName} ${user.firstName}`
-    //             // }
-    //             if (user?.tenant.id === 2){
-    //                 console.log(user.firstName)
-    //             }
-    //         }
+    const tenantOrNoTenant = () => {
+        for (let i = 0; i < tenants.length; i++) {
+            const tenant = tenants[i]
+            if (tenant.propertyId === property.id){
+                    return `${tenant?.userProfile.lastName}, ${tenant?.userProfile.firstName}`
+                }
+            }
             
-    //     }
-    //     tenantOrNoTenant()
-    //     // console.log(users)
+        }
 
     useEffect(() => {
-            getAllUserProfiles().then(allUserProfiles => setUsers(allUserProfiles))
+            getAllTenantsWithPropertyAndUserProfile().then(allTenants => setTenants(allTenants))
     },[])
         
     useEffect(() => {
@@ -44,7 +39,6 @@ export const PropertyDetails = () => {
     useEffect(() => {
         getMaintenanceHistoryByPropertyId(id).then(propertyNotes => setNotes(propertyNotes))
     }, [])
-    // console.log(property?.tenant?.userProfile)
 
     if (!property) {
         return null;
@@ -56,17 +50,6 @@ export const PropertyDetails = () => {
         }
         else return "YES"
     }
-
-    // const tenantOrNoTenant = () => {
-    //     if (property?.tenant.id === -1) {
-    //         return "N/A"
-    //     }
-    //     else {
-    //         return `${property?.tenant.lastName}, ${property?.tenant.firstName}`
-    //     }
-    
-    // }
-
 
     const handleDelete = () => {
         deleteProperty(property.id).then(() => {
@@ -100,8 +83,7 @@ export const PropertyDetails = () => {
                 <div>Size Description: {property.sizeDescription}</div>
                 <div>Rent Amount: ${property.rent} </div>
                 <div>Vacant: {isVacant()}</div>
-                {/* <div>Tenant: {tenantOrNoTenant()}</div> */}
-                <div style={{color: "orange"}}>TENANT NAME IS SUPPOSED TO GO RIGHT HERE!!!!! HEADS UP YOU MAY HAVE TO USE COALESCE IN THE BACKEND. GET TENANTS CRUDDING FIRST</div>
+                <div>Tenant: {tenantOrNoTenant()}</div>
                 <Button onClick={() => navigate(`/properties/edit/${property.id}`)}>Edit</Button>
                 <Button variant="danger" type="delete"onClick={() => {setShowAlert(true)}}> 
                 Delete
