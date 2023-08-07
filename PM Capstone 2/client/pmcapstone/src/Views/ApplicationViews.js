@@ -6,10 +6,11 @@ import { PropertyEdit } from "../properties/PropertyEdit"
 import { MaintenanceHistoryForm } from "../maintenanceHistory/MaintenanceHistoryForm"
 import { MaintenanceHistoryEdit } from "../maintenanceHistory/MaintenanceHistoryEdit"
 import { UserProfilesList } from "../userProfiles/UserProfilesList"
-import { UserProfileForm } from "../userProfiles/UserProfileForm"
+import { NewEmployeeForm } from "../userProfiles/NewEmployeeForm"
 import { UserProfileEdit } from "../userProfiles/UserProfileEdit"
 import { TenantsList } from "../tenants/TenantsList"
 import { TenantDetails } from "../tenants/TenantDetails"
+import { NewTenantForm } from "../userProfiles/NewTenantForm"
 
 export const ApplicationViews = () => {
     const localPMUser = localStorage.getItem("userProfile")
@@ -30,12 +31,12 @@ export const ApplicationViews = () => {
 
         {/* User Profiles */}
         <Route path="/users" element={<UserProfilesList />} />
-        <Route path="/users/add" element={<UserProfileForm />} />
+        <Route path="/users/add-employee" element={<NewEmployeeForm />} />
+        <Route path="/users/add-tenant" element={<NewTenantForm />} />
         <Route path="/users/edit/:userId" element={<UserProfileEdit />} />
 
         {/* Tenants */}
         <Route path="/tenants" element={ <TenantsList />} />
-        <Route path="/tenants/add" element={""} />
         <Route path="/tenants/:id" element={ <TenantDetails /> } />
 
 

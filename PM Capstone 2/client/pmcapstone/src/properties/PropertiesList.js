@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Form, FormControl, InputGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Button, Col, Container, Row, Table } from "reactstrap";
 import { getAllProperties } from "../APIManagers/PropertiesManager";
