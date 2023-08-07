@@ -21,16 +21,17 @@ export const PropertyDetails = () => {
     const tenantOrNoTenant = () => {
         for (let i = 0; i < tenants.length; i++) {
             const tenant = tenants[i]
-            if (tenant.propertyId === property.id){
-                    return `${tenant?.userProfile.lastName}, ${tenant?.userProfile.firstName}`
-                }
+            // if (tenant.propertyId === property.id){
+            //         return `${tenant?.userProfile.lastName}, ${tenant?.userProfile.firstName}`
+            //     }
+            // {property.userProfile.lastName}, {property.userProfile.firstName}
             }
             
         }
 
-    useEffect(() => {
-            getAllTenantsWithPropertyAndUserProfile().then(allTenants => setTenants(allTenants))
-    },[])
+    // useEffect(() => {
+    //         getAllTenantsWithPropertyAndUserProfile().then(allTenants => setTenants(allTenants))
+    // },[])
         
     useEffect(() => {
         getPropertyById(id).then(setProperty)
@@ -69,8 +70,9 @@ export const PropertyDetails = () => {
           <br></br><Link onClick={handleDelete}>Yes</Link> / <Link onClick={handleCancel}>No</Link>
         </Alert>
         </>)
-      }
+}
 
+console.log(property.userProfile.lastName)
     return(
         <>
         <Container>
@@ -83,7 +85,7 @@ export const PropertyDetails = () => {
                 <div>Size Description: {property.sizeDescription}</div>
                 <div>Rent Amount: ${property.rent} </div>
                 <div>Vacant: {isVacant()}</div>
-                <div>Tenant: {tenantOrNoTenant()}</div>
+                <div>Tenant: </div>
                 <Button onClick={() => navigate(`/properties/edit/${property.id}`)}>Edit</Button>
                 <Button variant="danger" type="delete"onClick={() => {setShowAlert(true)}}> 
                 Delete

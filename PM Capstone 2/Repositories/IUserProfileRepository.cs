@@ -10,5 +10,7 @@ namespace PropertyManager.Repositories
         UserProfile GetByEmail(string email);
         UserProfile GetById(int id);
         void Update(UserProfile userProfile);
+
+        UserProfile GetTenantById(int id);
     }
 }
