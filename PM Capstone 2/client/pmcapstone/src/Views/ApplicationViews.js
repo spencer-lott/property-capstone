@@ -11,6 +11,7 @@ import { UserProfileEdit } from "../userProfiles/UserProfileEdit"
 import { TenantsList } from "../tenants/TenantsList"
 import { TenantDetails } from "../tenants/TenantDetails"
 import { NewTenantForm } from "../userProfiles/NewTenantForm"
+import { NewUserForm } from "../userProfiles/NewUserForm"
 
 export const ApplicationViews = () => {
     const localPMUser = localStorage.getItem("userProfile")
@@ -31,8 +32,9 @@ export const ApplicationViews = () => {
 
         {/* User Profiles */}
         <Route path="/users" element={<UserProfilesList />} />
-        <Route path="/users/add-employee" element={<NewEmployeeForm />} />
-        <Route path="/users/add-tenant" element={<NewTenantForm />} />
+        {/* <Route path="/users/add-employee" element={<NewEmployeeForm />} />
+        <Route path="/users/add-tenant" element={<NewTenantForm />} /> */}
+        <Route path="/users/add" element={<NewUserForm />} />
         <Route path="/users/edit/:userId" element={<UserProfileEdit />} />
 
         {/* Tenants */}

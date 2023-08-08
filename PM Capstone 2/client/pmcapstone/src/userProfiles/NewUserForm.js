@@ -4,21 +4,15 @@ import {addTenant} from "../APIManagers/TenantManager"
 import {addUserProfile, getAllUserProfiles} from "../APIManagers/UserProfileManager"
 import { getAllProperties } from "../APIManagers/PropertiesManager"
 
-export const NewTenantForm = () => {
-    const getProperties = () => {
-        getAllProperties().then(allProperties => setProperties(allProperties));
-    }
-    useEffect(() => {
-        getProperties();
-    },[])
+export const NewUserForm = () => {
 
-    const [properties, setProperties] = useState([])
+    const [showTenantInputs, setShowTenantInputs] = useState(true)
     const navigate = useNavigate()
     const [user, updateUser] = useState({
         firstName: "",
         lastName: "",
         email: "",
-        isEmployee: false,
+        isEmployee: null,
         isAdmin: false,
         phone: "",
         employment: "",
@@ -41,39 +35,53 @@ export const NewTenantForm = () => {
             EmergencyContactName: user.emergencyContactName,
             EmergencyContactPhone: user.emergencyContactPhone,
             GeneralNotes: user.generalNotes
-    
-        };
+        }
     
         return addUserProfile(userToSendToAPI).then(navigate(`/users`))
 
     };    
+
+    const userSelect = (event) => {
+        const selectedUserType = event.target.value === "true";
+        const copy = {
+            ...user,
+            isEmployee: selectedUserType,
+            phone: selectedUserType ? null : "",
+            employment: selectedUserType ? null : "",
+            emergencyContactName: selectedUserType ? null : "",
+            emergencyContactPhone: selectedUserType ? null : "",
+            generalNotes: selectedUserType ? null : "",
+        };
+        updateUser(copy);
+        setShowTenantInputs(selectedUserType);
+    };
     
-    //THIS MIGHT BE WRONG
-    const selectProperty = (event) => {
-        const selectedPropertyId = parseInt(event.target.value);
-        const selectedProperty = properties.find(property => property.id === selectedPropertyId);
-        
-        if (selectedProperty && selectedProperty.vacant) {
-            const copy = { ...user };
-            copy.userProfileId = selectedPropertyId;
-            updateUser(copy);
-        }
-    }
-    
-//IF SELECT TRUE FOR IS TENANT => THEN POPULATE THE REST OF THE FORM TO PUT IN PHONE AND OTHER DETAILS
     return (
         <>
             <div>
-                <form className="tenant-form">
-                    <h1>Create a new tenant</h1>
-                    <h2 className="tenant-form">New Tenant</h2>
+                <form className="user-form">
+                    <h1>Create New User</h1>
+
+                    <fieldset>
+                        <div className="form-group">
+                        <label htmlFor="userType-select">User type</label>
+                            <select id="type"
+                                required
+                                value={user.isEmployee}
+                                onChange={userSelect}>
+                                    <option value="0">Select</option>
+                                    <option value="true">Employee</option>
+                                    <option value="false">Tenant</option>
+                                </select>  
+                            </div>
+                    </fieldset>
+
                     <fieldset>
                         <div className="form-group">
                             <label htmlFor="first">First Name</label>
                             <input id="title" type="text" className="form-control"
-                                value={
-                                    user.firstName
-                                }
+                                required
+                                value={user.firstName}
                                 onChange={
                                     (event) => {
                                         const copy = {
@@ -90,9 +98,8 @@ export const NewTenantForm = () => {
                     <div className="form-group">
                         <label htmlFor="last">Last Name</label>
                         <input id="title" type="text" className="form-control"
-                            value={
-                                user.lastName
-                            }
+                            required
+                            value={user.lastName}
                             onChange={
                                 (event) => {
                                     const copy = {
@@ -102,138 +109,136 @@ export const NewTenantForm = () => {
                                     updateUser(copy)
                                 }
                             }/>
-                    </div>
-            </fieldset>
-
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input id="title" type="text" className="form-control"
-                        value={
-                            user.email
-                        }
-                        onChange={
-                            (event) => {
-                                const copy = {
-                                    ...user
-                                }
-                                copy.email = event.target.value
-                                updateUser(copy)
-                            }
-                        }/>
-                </div>
-        </fieldset>
---------------------------------------
-            <fieldset>
-                    <div className="form-group">
-                        <label htmlFor="category-select">Category</label>
-                        <select id="type"
-                                required
-                                value={tenant.propertyId}
-                                onChange={event => selectProperty(event)}>
-                                <option value="0">Select a property</option>
-                                {properties.filter(property => property.vacant).map(property => (
-                                    <option value={property.id} key={property.id}>
-                                        {property.streetAddress}
-                                    </option>
-                                ))}
-                            </select>
-
-                        {/* <select id="type"
-                            required
-                            value={
-                                tenant.propertyId
-                            }
-                            onChange={
-                                event => selectProperty(event)
-                        }>
-                            <option value="0">Select a property</option>
-                            {
-                            properties.map(property => {
-                                return <option value={property.id} key={
-                                    property.id
-                                }>
-                                    {
-                                    property.streetAddress
-                                }</option>
-                        })
-                        } </select>   */}
                         </div>
                 </fieldset>
 
-        <fieldset>
-            <div className="form-group">
-                <label htmlFor="phone">Phone</label>
-                <input id="title" type="text" className="form-control"
-                    value={
-                        tenant.phone
-                    }
-                    onChange={
-                        (event) => {
-                            const copy = {
-                                ...tenant
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="email">Email</label>
+                        <input id="title" type="text" className="form-control"
+                            required
+                            value={
+                                user.email
                             }
-                            copy.phone = event.target.value
-                            updateTenant(copy)
-                        }
-                    }/>
-            </div>
-    </fieldset>
+                            onChange={
+                                (event) => {
+                                    const copy = {
+                                        ...user
+                                    }
+                                    copy.email = event.target.value
+                                    updateUser(copy)
+                                }
+                            }/>
+                        </div>
+                </fieldset>
 
-    <fieldset>
-        <div className="form-group">
-            <label htmlFor="employment">Employment</label>
-            <input id="title" type="text" className="form-control"
-                value={
-                    tenant.employment
-                }
-                onChange={
-                    (event) => {
-                        const copy = {
-                            ...tenant
-                        }
-                        copy.employment = event.target.value
-                        updateTenant(copy)
-                    }
-                }/>
-        </div>
-</fieldset>
+{!showTenantInputs? 
+            <>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="phone">Phone</label>
+                        <input id="title" type="number" className="form-control"
+                            value={
+                                user.phone
+                            }
+                            onChange={
+                                (event) => {
+                                    const copy = {
+                                        ...user
+                                    }
+                                    copy.phone = event.target.value
+                                    updateUser(copy)
+                                }
+                            }/>
+                        </div>
+                </fieldset>
 
-<fieldset>
-    <div className="form-group">
-        <label htmlFor="emergency-name">Emergency Contact Name</label>
-        <input id="title" type="text" className="form-control"
-            value={
-                tenant.emergencyContactName
-            }
-            onChange={
-                (event) => {
-                    const copy = {
-                        ...tenant
-                    }
-                    copy.emergencyContactName = event.target.value
-                    updateTenant(copy)
-                }
-            }/>
-    </div></fieldset><fieldset>
-<div className="form-group">
-    <label htmlFor="emergency-phone">Emergency Contact Phone</label>
-    <input id="title" type="text" className="form-control"
-        value={
-            tenant.emergencyContactPhone
-        }
-        onChange={
-            (event) => {
-                const copy = {
-                    ...tenant
-                }
-                copy.emergencyContactPhone = event.target.value
-                updateTenant(copy)
-            }
-        }/>
-</div></fieldset><button className="btn btn-primary"
-    onClick={
-        (clickEvent) => handleSaveButtonClick(clickEvent)
-}>Submit Tenant</button></form></div></>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="employment">Employment</label>
+                        <input id="title" type="text" className="form-control"
+                            value={
+                                user.employment
+                            }
+                            onChange={
+                                (event) => {
+                                    const copy = {
+                                        ...user
+                                    }
+                                    copy.employment = event.target.value
+                                    updateUser(copy)
+                                }
+                            }/>
+                        </div>
+                </fieldset>
+
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="emergency-name">Emergency Contact Name</label>
+                        <input id="title" type="text" className="form-control"
+                            value={
+                                user.emergencyContactName
+                            }
+                            onChange={
+                                (event) => {
+                                    const copy = {
+                                        ...user
+                                    }
+                                    copy.emergencyContactName = event.target.value
+                                    updateUser(copy)
+                                }
+                            }/>
+                    </div>
+                </fieldset>
+    
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="emergency-phone">Emergency Contact Phone</label>
+                        <input id="title" type="number" className="form-control"
+                            value={
+                                user.emergencyContactPhone
+                            }
+                            onChange={
+                                (event) => {
+                                    const copy = {
+                                        ...user
+                                    }
+                                    copy.emergencyContactPhone = event.target.value
+                                    updateUser(copy)
+                                }
+                            }/>
+                        </div>
+                </fieldset>
+                <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="notes">General notes</label>
+                        <input id="title" type="text" className="form-control"
+                            value={
+                                user.generalNotes
+                            }
+                            onChange={
+                                (event) => {
+                                    const copy = {
+                                        ...user
+                                    }
+                                    copy.generalNotes = event.target.value
+                                    updateUser(copy)
+                                }
+                            }/>
+                    </div>
+                </fieldset>
+
+                </>
+                : <></>
+
+                        }
+
+            <button className="btn btn-primary"
+                onClick={
+                    (clickEvent) => handleSaveButtonClick(clickEvent)
+            }>Submit User</button>
+        </form>
+    </div>
+</>
     )
 }
