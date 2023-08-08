@@ -12,26 +12,20 @@ export const UserProfilesList = () => {
         getAllUserProfiles().then(allUsers => setUsers(allUsers))
     }
     
-    // console.log(users)
     useEffect(() => {
         getUsers()
     }, [])
 
-    const createEmployee = () => {
-        navigate("/users/add-employee")
+    const create = () => {
+        navigate("/users/add")
     }
-
-    const createTenant = () => {
-        navigate("/users/add-tenant")
-    }
-
 
     return (<>
         <Container fluid className="users-list">
             <Row>
                 <Col>
-                <Button onClick={createEmployee}>New Employee</Button>
-                <Button onClick={createTenant}>New Tenant</Button>
+                <Button onClick={create}>New User</Button>
+
                 </Col>
                 <Col>
                     {/* search input */}

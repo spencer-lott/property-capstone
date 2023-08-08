@@ -7,8 +7,11 @@ namespace PropertyManager.Repositories
         void Add(UserProfile userProfile);
         void Delete(int id);
         List<UserProfile> GetAll();
+        List<UserProfile> GetAllWithProperty();
         UserProfile GetByEmail(string email);
         UserProfile GetById(int id);
         void Update(UserProfile userProfile);
+
+        UserProfile GetUserProfileByIdWithProperty(int id);
     }
 }

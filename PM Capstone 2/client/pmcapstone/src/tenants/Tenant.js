@@ -12,21 +12,25 @@ export const Tenant = ({ tenant }) => {
             //reformat and return phone number
             return phone.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
         }
-    
         return null;
     }
     var phone = tenant.phone;
     phone = formatPhoneNumber(phone); //(123) 456-7890
-
-    //when accessing the tables that are connected with a foreign key, you have to make a method that returns those values in the backend. This one is called GetAllTenantsWithPropertyAndUserProfile
     
+    const addressOrNoAddress = () => {
+        if (!tenant?.property) {
+            return "N/A"
+        } else {
+            return tenant?.property?.streetAddress
+    }}
+
     return (
         <tbody>
             <tr>
-                <td> <Link to={`/tenants/${tenant.id}`}>{tenant?.userProfile.lastName}, {tenant?.userProfile.firstName}</Link></td>
+                <td> <Link to={`/users/tenants/${tenant.id}`}>{tenant.lastName}, {tenant.firstName}</Link></td>
                 <td> {phone} </td>
-                <td> {tenant?.userProfile.email}</td>
-                <td> {tenant?.property.streetAddress}</td>
+                <td> {tenant.email}</td>
+                <td> {addressOrNoAddress()}</td>
                
             </tr>
         </tbody>

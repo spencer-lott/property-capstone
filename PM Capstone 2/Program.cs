@@ -12,7 +12,7 @@ namespace PropertyManager
 
             builder.Services.AddControllers();
             builder.Services.AddTransient<IPropertyRepository, PropertyRepository>();
-            builder.Services.AddTransient<ITenantRepository, TenantRepository>();
+            //builder.Services.AddTransient<ITenantRepository, TenantRepository>();
             builder.Services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             builder.Services.AddTransient<IMaintenanceHistoryRepository, MaintenanceHistoryRepository>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
