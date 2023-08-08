@@ -1,8 +1,6 @@
-import {useEffect, useState} from "react"
+import { useState} from "react"
 import {useNavigate} from "react-router-dom"
-import {addTenant} from "../APIManagers/TenantManager"
 import {addUserProfile, getAllUserProfiles} from "../APIManagers/UserProfileManager"
-import { getAllProperties } from "../APIManagers/PropertiesManager"
 
 export const NewUserForm = () => {
 
@@ -24,7 +22,7 @@ export const NewUserForm = () => {
     const handleSaveButtonClick = (event) => {
         event.preventDefault();
     
-        const userToSendToAPI = {
+        let userToSendToAPI = {
             FirstName: user.firstName,
             LastName: user.lastName,
             Email: user.email,
@@ -35,6 +33,14 @@ export const NewUserForm = () => {
             EmergencyContactName: user.emergencyContactName,
             EmergencyContactPhone: user.emergencyContactPhone,
             GeneralNotes: user.generalNotes
+        }
+
+        if (user.isEmployee === true) {
+            userToSendToAPI = {FirstName: user.firstName,
+            LastName: user.lastName,
+            Email: user.email,
+            IsEmployee: user.isEmployee,
+            IsAdmin: user.isAdmin}
         }
     
         return addUserProfile(userToSendToAPI).then(navigate(`/users`))

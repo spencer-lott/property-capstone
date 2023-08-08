@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Alert, Button, Col, Container, Row, Table } from "react-bootstrap";
-import { getTenantById } from "../APIManagers/TenantManager";
+import { useParams } from "react-router-dom";
+import { Col, Container, Row } from "react-bootstrap";
 import { getUserProfileByIdWithProperty } from "../APIManagers/UserProfileManager";
 
 

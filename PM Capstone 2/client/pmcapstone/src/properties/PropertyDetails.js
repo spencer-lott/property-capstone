@@ -11,8 +11,6 @@ import {
 } from "react-bootstrap";
 import {getMaintenanceHistoryByPropertyId} from "../APIManagers/MaintenanceHistoryManager";
 import {MaintenanceHistory} from "../maintenanceHistory/MaintenanceHistory";
-import {getAllUserProfiles} from "../APIManagers/UserProfileManager";
-import {getAllTenantsWithPropertyAndUserProfile} from "../APIManagers/TenantManager";
 
 export const PropertyDetails = () => {
     const [property, setProperty] = useState();
