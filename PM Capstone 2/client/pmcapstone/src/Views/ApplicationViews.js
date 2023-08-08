@@ -36,10 +36,10 @@ export const ApplicationViews = () => {
         <Route path="/users/add-tenant" element={<NewTenantForm />} /> */}
         <Route path="/users/add" element={<NewUserForm />} />
         <Route path="/users/edit/:userId" element={<UserProfileEdit />} />
+        <Route path="/users/tenants" element={ <TenantsList />} />
+        <Route path="/users/tenants/:id" element={ <TenantDetails /> } />
 
         {/* Tenants */}
-        {/* <Route path="/tenants" element={ <TenantsList />} />
-        <Route path="/tenants/:id" element={ <TenantDetails /> } /> */}
 
 
         </Routes>

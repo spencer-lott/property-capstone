@@ -1,54 +1,53 @@
-// import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { Button, Col, Container, Row, Table } from "reactstrap";
-// import { getAllTenants, getAllTenantsWithPropertyAndUserProfile } from "../APIManagers/TenantManager";
-// import { Tenant } from "./Tenant";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button, Col, Container, Row, Table } from "reactstrap";
+import { Tenant } from "./Tenant";
+import { getAllUserProfiles, getAllUserProfilesWithProperty } from "../APIManagers/UserProfileManager";
 
-// export const TenantsList = () => {
-// const navigate = useNavigate()
-//     const [tenants, setTenants] = useState([]);
+export const TenantsList = () => {
+const navigate = useNavigate()
+    const [users, setUsers] = useState([]);
+    const [filteredTenants, setFilteredTenants] = useState([])
 
-//     const getTenants = () => {
-//         getAllTenantsWithPropertyAndUserProfile().then(allTenants => setTenants(allTenants));
-//     }
+    const getUsers = () => {
+        getAllUserProfilesWithProperty().then(allUsers => setUsers(allUsers));
+    }
 
-//     useEffect(() => {
-//         getTenants();
-//     },[])
+    useEffect(() => {
+        getUsers();
+    },[])
 
-//     const create = () => {
-//         navigate("/tenants/add")
-//     }
+    useEffect(() => {
+        const tenants = users.filter(user => user.isAdmin === false && user.isEmployee === false)
+            setFilteredTenants(tenants)
+    }, [users])
 
-//     return (<>
-//         <Container fluid className="tenants-list">
-//             <Row>
-//                 <Col>
-//                 <Button onClick={create}>Create New</Button>
-//                 </Col>
-//                 <Col>
-//                     {/* search input */}
-//                 </Col>
-//             </Row>
-//             <Row>
-//                 <Col>
-//                 <Table>
-//                 <thead>
-//                 <tr>
-//                     <th>Name</th>
-//                     <th>Phone</th>
-//                     <th>Email</th>
-//                     <th>Street Address</th>
-//                 </tr>
-//                 </thead>
-//                 {tenants.map((tenant) => {
-//                 return  <Tenant key={tenant.id} tenant={tenant} />
-//               })} 
+    return (<>
+        <Container fluid className="tenants-list">
+            <Row>
+                <Col>
+                    {/* search input */}
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                <Table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Street Address</th>
+                </tr>
+                </thead>
+                {filteredTenants.map((tenant) => {
+                return  <Tenant key={tenant.id} tenant={tenant} />
+              })} 
 
-//                 </Table>
-//                 </Col>
-//             </Row>
-//         </Container>
-//     </>
-//     );
-// }
+                </Table>
+                </Col>
+            </Row>
+        </Container>
+    </>
+    );
+}

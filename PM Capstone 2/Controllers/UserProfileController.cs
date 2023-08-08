@@ -22,6 +22,14 @@ namespace PropertyManager.Controllers
             return Ok(userProfiles);
         }
 
+        [HttpGet("GetAllWithProperty")]
+        public IActionResult GetAllWithProperty()
+        {
+            var userProfiles = _userProfileRepository.GetAllWithProperty();
+            return Ok(userProfiles);
+        }
+
+
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -32,17 +40,16 @@ namespace PropertyManager.Controllers
             }
             return Ok(userProfile);
         }
-
-        //[HttpGet("{id}")]
-        //public IActionResult Get(int id)
-        //{
-        //    var userProfile = _userProfileRepository.GetById(id);
-        //    if (userProfile == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(userProfile);
-        //}
+        [HttpGet("GetUserProfileByIdWithProperty/{id}")]
+        public IActionResult GetUserProfileByIdWithProperty(int id)
+        {
+            var userProfile = _userProfileRepository.GetUserProfileByIdWithProperty(id);
+            if (userProfile == null)
+            {
+                return NotFound();
+            }
+            return Ok(userProfile);
+        }
 
 
         [HttpGet("GetByEmail")]

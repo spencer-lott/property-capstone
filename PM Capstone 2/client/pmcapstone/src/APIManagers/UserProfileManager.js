@@ -23,8 +23,16 @@ export const getAllUserProfiles = () => {
   return fetch('/api/UserProfile').then((res) => res.json())
 };
 
+export const getAllUserProfilesWithProperty = () => {
+  return fetch('/api/UserProfile/GetAllWithProperty').then((res) => res.json())
+};
+
 export const getUserProfileById = (id) => {
   return fetch(`/api/UserProfile/${id}`).then((res) => res.json())
+}
+
+export const getUserProfileByIdWithProperty = (id) => {
+  return fetch(`/api/UserProfile/GetUserProfileByIdWithProperty/${id}`).then((res) => res.json())
 }
 
 export const addUserProfile = (singleProfile) => {
