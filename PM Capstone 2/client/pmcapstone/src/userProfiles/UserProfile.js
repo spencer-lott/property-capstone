@@ -28,7 +28,6 @@ export const UserProfile = ({ user, setUsers }) => {
           setShowAlert(false)
           navigate(`/users`)
         })
-        
       };   
       
     const handleCancel = () => {
@@ -44,6 +43,13 @@ export const UserProfile = ({ user, setUsers }) => {
         </>)
       }
 
+    const handleUserTypeEdit = () => {
+        if (user.isEmployee === true){
+            return `/users/employee-edit/${user.id}`
+        } else {
+            return `/users/tenant-edit/${user.id}`
+        }
+    }
 
     return (<>
         <tbody>
@@ -51,10 +57,14 @@ export const UserProfile = ({ user, setUsers }) => {
                 <td>{user.lastName}, {user.firstName}</td>
                 <td> {user.email} </td>
                 {userType()}
-                <Link style={{color: "blue" }} onClick={() => navigate(`/users/edit/${user.id}`)}>Edit</Link>
+                <td>
+                    <Link style={{color: "blue" }} to={handleUserTypeEdit()}>Edit</Link>
+                </td>
+                <td>
                 <Link style={{color: "red" }} variant="danger" type="delete"onClick={() => {setShowAlert(true)}}> 
                 Delete
                 </Link>
+                </td>
             </tr>
                 {showAlert && deleteUserProfileAlert()}
         </tbody>
