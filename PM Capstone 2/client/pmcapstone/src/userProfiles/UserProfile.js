@@ -28,7 +28,6 @@ export const UserProfile = ({ user, setUsers }) => {
           setShowAlert(false)
           navigate(`/users`)
         })
-        
       };   
       
     const handleCancel = () => {
@@ -64,9 +63,10 @@ export const UserProfile = ({ user, setUsers }) => {
                 <td>
                 <Link style={{color: "red" }} variant="danger" type="delete"onClick={() => {setShowAlert(true)}}> 
                 Delete
-                </Link></td>
-                {showAlert && deleteUserProfileAlert()}
+                </Link>
+                </td>
             </tr>
+                {showAlert && deleteUserProfileAlert()}
         </tbody>
         </>
     )
