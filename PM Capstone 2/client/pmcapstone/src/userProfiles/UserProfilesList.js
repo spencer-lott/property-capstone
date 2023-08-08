@@ -39,6 +39,8 @@ export const UserProfilesList = () => {
                     <th>Full Name</th>
                     <th>Email</th>
                     <th>User Type</th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 {users.map((user) => {
