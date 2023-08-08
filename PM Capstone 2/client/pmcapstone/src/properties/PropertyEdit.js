@@ -7,6 +7,7 @@ import { editProperty, getPropertyById } from "../APIManagers/PropertiesManager"
 export const PropertyEdit = () => {
     const navigate = useNavigate()
     const { propertyId} = useParams()  
+    const [originalUserProfileId, setOriginalUserProfileId] = useState(0)
     const [property, update] = useState({
         streetAddress: "",
         city: "",
@@ -14,19 +15,21 @@ export const PropertyEdit = () => {
         type: "",
         sizeDescription: "",
         rent: 0,
-        vacant: true
+        vacant: true,
+        // userProfileId: 0
     })
 
     useEffect(() => {
         getPropertyById(propertyId)
         .then((propertyArray) => {
             update(propertyArray)
+            setOriginalUserProfileId(property.userProfileId)
         })
     }, [propertyId])
 
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
-        const propertyToEdit = {
+        let propertyToEdit = {
             Id: parseInt(propertyId),
             StreetAddress: property.streetAddress,
             City: property.city,
@@ -36,6 +39,21 @@ export const PropertyEdit = () => {
             Rent: property.rent,
             Vacant: true
         }
+        
+        if (property.userProfileId !== -1){
+            propertyToEdit = {
+                Id: parseInt(propertyId),
+                StreetAddress: property.streetAddress,
+                City: property.city,
+                State: property.state,
+                Type: property.type,
+                SizeDescription: property.sizeDescription,
+                Rent: property.rent,
+                Vacant: true,
+                UserProfileId: property.userProfileId
+            }
+        }
+
 
         return editProperty(propertyToEdit).then(navigate(`/properties/${propertyId}`))
     }

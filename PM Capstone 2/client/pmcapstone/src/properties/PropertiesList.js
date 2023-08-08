@@ -9,7 +9,7 @@ export const PropertyList = () => {
     const [properties, setProperties] = useState([]);
 
     const getProperties = () => {
-        getAllProperties().then(allProperties => setProperties(allProperties));
+        getAllProperties().then(allProperties => setProperties(allProperties))
     }
 
     useEffect(() => {
