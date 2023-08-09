@@ -11,6 +11,8 @@ export const PropertyList = () => {
   const [searchResults, setSearchResults] = useState([])
   const [hideProperties, setHideProperties] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
+  const [showVacant, setShowVacant] = useState(false)
+  const [vacantProperties, setVacantProperties] = useState([])
 
   const getProperties = () => {
     getAllProperties().then((allProperties) => setProperties(allProperties))
@@ -54,7 +56,16 @@ export const PropertyList = () => {
             <div>You cannot leave the search input blank. <Link onClick={() => setShowAlert(false)}>clear</Link></div>
         </Alert>
     )
-}
+  }
+
+  const switchView = () => {
+    setShowVacant(!showVacant)
+  }
+
+  useEffect(() => {
+    const vacancies = properties.filter(property => property.vacant === true)
+    setVacantProperties(vacancies)
+  }, [properties])
 
   return (
     <>
@@ -115,9 +126,11 @@ export const PropertyList = () => {
             )}
           </Col>
         </Row>
+          {!showVacant ?
         <Row>
           {!hideProperties && searchResults.length === 0 && (
             <Col>
+              <Button onClick={switchView}>Show Vacant Properties</Button>
               <Table>
                 <thead>
                   <tr>
@@ -151,6 +164,42 @@ export const PropertyList = () => {
             </Col>
           )}
         </Row>
+      :<>
+        <Col>
+        <Button onClick={switchView}>Show All Properties</Button>
+        <Table>
+          <thead>
+            <tr>
+              <th>Street Address</th>
+              <th>City/State</th>
+              <th>Type</th>
+              <th>Size Description</th>
+              <th>Monthly Rent</th>
+              <th>Vacant</th>
+            </tr>
+          </thead>
+          <tbody>
+            {vacantProperties.map((property) => (
+              <tr key={property.id}>
+                <td>
+                  <Link to={`/properties/${property.id}`}>
+                    {property.streetAddress}
+                  </Link>
+                </td>
+                <td>
+                  {property.city}, {property.state}
+                </td>
+                <td>{property.type}</td>
+                <td>{property.sizeDescription}</td>
+                <td>${property.rent}</td>
+                <td>{property.vacant === true ? "Y" : "N"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+        </Col>
+        </>
+        } 
       </Container>
     </>
   );
