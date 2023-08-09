@@ -21,8 +21,6 @@ export const UserProfile = ({ user, setUsers }) => {
         }
     }
 
-    // console.log(user?.property)
-
     const handleDelete = () => {
         if (user?.property === null){
 
@@ -35,7 +33,6 @@ export const UserProfile = ({ user, setUsers }) => {
         } else {
             window.alert(`This user is assigned to the property at ${user?.property.streetAddress} and must be UNASSIGNED first before you can delete them.`);
 
-            // Update the state to control the visibility of the alert
             setShowAlert(false);
         }
       }      
@@ -68,14 +65,20 @@ export const UserProfile = ({ user, setUsers }) => {
                 <td>{user.lastName}, {user.firstName}</td>
                 <td> {user.email} </td>
                 {userType()}
+            {user.isAdmin === false || user.isEmployee === false ?
                 <td>
                     <Link style={{color: "blue" }} to={handleUserTypeEdit()}>Edit</Link>
                 </td>
+                :<td>Restricted Privileges</td>
+            }
+            {user.isAdmin === false || user.isEmployee === false ?
                 <td>
                 <Link style={{color: "red" }} variant="danger" type="delete"onClick={() => {setShowAlert(true)}}> 
                 Delete
                 </Link>
                 </td>
+                :<td>Restricted Privileges</td>
+            }
             </tr>
                 {showAlert && deleteUserProfileAlert()}
         </tbody>
