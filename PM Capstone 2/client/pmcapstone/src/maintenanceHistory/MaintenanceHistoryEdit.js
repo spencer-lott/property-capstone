@@ -76,7 +76,7 @@ export const MaintenanceHistoryEdit = () => {
     return (
         <>
             <div>
-                <h1>Create a new note</h1>
+                <h1>Edit or complete request</h1>
                 <form className="note-form">
                     <h2 className="note-form">New note</h2>
 

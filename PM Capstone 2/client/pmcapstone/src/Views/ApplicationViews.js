@@ -12,6 +12,7 @@ import { NewUserForm } from "../userProfiles/NewUserForm"
 import { EmployeeEdit } from "../userProfiles/EmployeeEdit"
 import { TenantEdit } from "../userProfiles/TenantEdit"
 import { AssignTenantEdit } from "../properties/AssignTenantEdit"
+import { AllRequestsList } from "../maintenanceHistory/AllRequestsList"
 
 export const ApplicationViews = () => {
     const localPMUser = localStorage.getItem("userProfile")
@@ -20,7 +21,7 @@ export const ApplicationViews = () => {
     return(
         <Routes>
         {/* Home/Landing Page */}
-        <Route path="/" element={"wassup"} />
+        <Route path="/" element={"Welcome to Property Manager"} />
 
         {/* Properties & Maintenance History*/}
         <Route path="/properties" element={ <PropertyList />} />
@@ -38,6 +39,10 @@ export const ApplicationViews = () => {
         <Route path="/users/tenant-edit/:userId" element={<TenantEdit />} />
         <Route path="/users/tenants" element={ <TenantsList />} />
         <Route path="/users/tenants/:id" element={ <TenantDetails /> } />
+
+        {/*Requests*/}
+        <Route path="/requests" element={<AllRequestsList />} />
+
 
         </Routes>
     )

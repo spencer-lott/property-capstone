@@ -88,7 +88,7 @@ namespace PropertyManager.Repositories
                     cmd.CommandText = @"
                         SELECT Id, Description, DateCompleted, DateRequested, PropertyId, UserProfileId FROM MaintenanceHistory
                         WHERE PropertyId = @propertyId
-                        ORDER BY DateCompleted";
+                        ORDER BY DateRequested Desc";
 
                     cmd.Parameters.AddWithValue("@propertyId", propertyId);
                     var reader = cmd.ExecuteReader();
@@ -114,6 +114,59 @@ namespace PropertyManager.Repositories
                 }
             }
         }
+
+        public List<MaintenanceHistory> GetAllMaintenanceHistoryWithProperty()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT m.Id AS MId, m.Description, m.DateCompleted, m.DateRequested, m.PropertyId, m.UserProfileId AS MUserProfileId,  p.Id AS PId, p.StreetAddress, p.City, p.State, p.Type, p.SizeDescription, p.Rent, p.Vacant, p.UserProfileId AS PUserProfileId
+                        FROM MaintenanceHistory m
+                        LEFT JOIN Property p ON p.Id = m.PropertyId
+                        ORDER BY m.DateCompleted ASC                        
+                        ";
+
+                    var reader = cmd.ExecuteReader();
+
+                    var notes = new List<MaintenanceHistory>();
+                    while (reader.Read())
+                    {
+                        notes.Add(new MaintenanceHistory()
+                        {
+                            Id = DbUtils.GetInt(reader, "MId"),
+                            Description = DbUtils.GetString(reader, "Description"),
+                            DateCompleted = DbUtils.GetDateTime(reader, "DateCompleted"),
+                            DateRequested = DbUtils.GetDateTime(reader, "DateRequested"),
+                            PropertyId = DbUtils.GetInt(reader, "PropertyId"),
+                            UserProfileId = DbUtils.GetInt(reader, "MUserProfileId"),
+                            Property = reader.IsDBNull(reader.GetOrdinal("PId"))
+                                ? null
+                                : new Property()
+                                {
+                                    Id = DbUtils.GetInt(reader, "PId"),
+                                    StreetAddress = DbUtils.GetString(reader, "StreetAddress"),
+                                    City = DbUtils.GetString(reader, "City"),
+                                    State = DbUtils.GetString(reader, "State"),
+                                    Type = DbUtils.GetString(reader, "Type"),
+                                    SizeDescription = DbUtils.GetString(reader, "SizeDescription"),
+                                    Rent = DbUtils.GetInt(reader, "Rent"),
+                                    Vacant = reader.GetBoolean(reader.GetOrdinal("Vacant")),
+                                    UserProfileId = DbUtils.GetInt(reader, "PUserProfileId")
+                                }
+
+                        });
+                    }
+
+                    reader.Close();
+
+                    return notes;
+                }
+            }
+        }
+
 
 
         public void Add(MaintenanceHistory note)

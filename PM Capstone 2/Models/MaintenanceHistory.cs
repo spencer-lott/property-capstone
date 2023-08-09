@@ -18,5 +18,7 @@ namespace PropertyManager.Models
         [Required]
         public int UserProfileId { get; set; }
 
+        public Property? Property { get; set; }
+
     }
 }
