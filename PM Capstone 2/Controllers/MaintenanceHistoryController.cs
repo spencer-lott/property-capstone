@@ -24,6 +24,15 @@ namespace PropertyManager.Controllers
             return Ok(notes);
         }
 
+        [HttpGet("GetAllMaintenanceHistoryWithProperty")]
+        public IActionResult GetAllMaintenanceHistoryWithProperty()
+        {
+            var notes = _maintenanceHistoryRepository.GetAllMaintenanceHistoryWithProperty();
+            return Ok(notes);
+        }
+
+
+
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {

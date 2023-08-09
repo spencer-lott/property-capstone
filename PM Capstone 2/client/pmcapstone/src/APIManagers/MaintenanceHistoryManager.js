@@ -2,6 +2,18 @@
 const baseUrl = '/api/MaintenanceHistory';
 // https://localhost:5001/api/MaintenanceHistory/GetPropertyMaintenanceHistory/1
 
+export const getAllMaintenanceHistory = () => {
+    return fetch(baseUrl).then((res) => res.json())
+};
+
+export const getAllMaintenanceHistoryWithProperty = () => {
+    return fetch('/api/MaintenanceHistory/GetAllMaintenanceHistoryWithProperty').then((res) => res.json())
+};
+
+
+// https://localhost:5001/api/MaintenanceHistory/GetAllMaintenanceHistoryWithProperty
+
+
 export const getMaintenanceHistoryByPropertyId = (id) => {
     return fetch(`${baseUrl}/GetPropertyMaintenanceHistory/${id}`).then((res) => res.json())
 }

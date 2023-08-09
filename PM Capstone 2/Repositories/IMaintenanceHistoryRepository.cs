@@ -10,5 +10,7 @@ namespace PropertyManager.Repositories
         List<MaintenanceHistory> GetMaintenanceHistoryByPropertyId(int propertyId);
         MaintenanceHistory GetById(int id);
         void Update(MaintenanceHistory note);
+
+        List<MaintenanceHistory> GetAllMaintenanceHistoryWithProperty();
     }
 }
