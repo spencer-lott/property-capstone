@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react"
-import { Button, Form, FormGroup, InputGroup } from "react-bootstrap"
-import { useNavigate, useParams } from "react-router-dom"
-import { Input, Label } from "reactstrap"
+import { Alert} from "react-bootstrap"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { editProperty, getPropertyById } from "../APIManagers/PropertiesManager"
 
 export const PropertyEdit = () => {
     const navigate = useNavigate()
     const { propertyId} = useParams()  
+    const [showTenant, setShowTenant] = useState(false)
+    const [showAlert, setShowAlert] = useState(false)
+
     const [property, update] = useState({
         streetAddress: "",
         city: "",
@@ -14,7 +16,7 @@ export const PropertyEdit = () => {
         type: "",
         sizeDescription: "",
         rent: 0,
-        vacant: true
+        vacant: true,
     })
 
     useEffect(() => {
@@ -26,7 +28,7 @@ export const PropertyEdit = () => {
 
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
-        const propertyToEdit = {
+        let propertyToEdit = {
             Id: parseInt(propertyId),
             StreetAddress: property.streetAddress,
             City: property.city,
@@ -36,17 +38,79 @@ export const PropertyEdit = () => {
             Rent: property.rent,
             Vacant: true
         }
+        
+        if (property.userProfileId !== -1){
+            propertyToEdit = {
+                Id: parseInt(propertyId),
+                StreetAddress: property.streetAddress,
+                City: property.city,
+                State: property.state,
+                Type: property.type,
+                SizeDescription: property.sizeDescription,
+                Rent: property.rent,
+                Vacant: false,
+                UserProfileId: property.userProfileId
+            }
+        }
 
         return editProperty(propertyToEdit).then(navigate(`/properties/${propertyId}`))
     }
 
+    const unassign = (event) => {
+        event.preventDefault()
+        let propertyToEdit = {
+            Id: parseInt(propertyId),
+            StreetAddress: property.streetAddress,
+            City: property.city,
+            State: property.state,
+            Type: property.type,
+            SizeDescription: property.sizeDescription,
+            Rent: property.rent,
+            Vacant: true
+        }
+        return editProperty(propertyToEdit).then(navigate(`/properties/${propertyId}`))
+
+    }
+
+    useEffect(() => {
+        if (property.userProfileId !== null || property.userProfileId !== -1)
+        {
+            setShowTenant(true)
+        }
+    }, [property.userProfileId])
+
+    const handleCancel = () => {
+        setShowAlert(false);
+    };
+
+
+    const unassignTenantAlert = () => {
+        return (
+            <Alert variant="danger" key={'danger'}>
+                Are you sure you want to unassign <b>{property?.userProfile?.lastName}, {property?.userProfile?.firstName}</b> from <b>{property.streetAddress}?</b>
+                <br></br>
+                <Link onClick={unassign}>Yes</Link> / <Link onClick={handleCancel}>No</Link>
+            </Alert>
+        );
+    };
+
+    
     return(
     <>
     <div>
         <h1>Edit property</h1>
+        <br></br>
             <form className="property-form">
-                <h2 className="property-form">New Post</h2>
-
+                {showTenant && (<>
+                    <h3>
+                        Tenant: {property?.userProfile?.lastName}, {property?.userProfile?.firstName}
+                        
+                    </h3>
+                    <div><Link onClick={() => setShowAlert(true)}>Unassign this tenant?</Link></div>
+                    {showAlert && unassignTenantAlert()}
+                    <br></br>
+                </>
+                )}
                 <fieldset>
                     <div className="form-group">
                         <label htmlFor="street-address">Street Address</label>
