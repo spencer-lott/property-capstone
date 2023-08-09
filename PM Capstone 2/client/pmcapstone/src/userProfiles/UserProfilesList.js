@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import {  getAllUserProfiles } from "../APIManagers/UserProfileManager"
+import {  getAllUserProfiles, getAllUserProfilesWithProperty } from "../APIManagers/UserProfileManager"
 import { Button, Col, Container, Row, Table } from "reactstrap";
 import { UserProfile } from "./UserProfile";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ export const UserProfilesList = () => {
     const [users, setUsers] = useState([])
 
     const getUsers = () => {
-        getAllUserProfiles().then(allUsers => setUsers(allUsers))
+        getAllUserProfilesWithProperty().then(allUsers => setUsers(allUsers))
     }
     
     useEffect(() => {

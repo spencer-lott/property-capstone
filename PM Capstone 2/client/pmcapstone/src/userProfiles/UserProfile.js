@@ -1,7 +1,7 @@
-import { Link, useNavigate } from "react-router-dom"
-import { deleteUserProfile } from "../APIManagers/UserProfileManager"
-import { Alert, Button } from "react-bootstrap";
-import { useState } from "react"
+import { Link, useNavigate, useParams } from "react-router-dom"
+import { deleteUserProfile, getUserProfileByIdWithProperty } from "../APIManagers/UserProfileManager"
+import { Alert } from "react-bootstrap";
+import { useEffect, useState } from "react"
 
 export const UserProfile = ({ user, setUsers }) => {
     const [showAlert, setShowAlert] = useState(false)
@@ -21,14 +21,24 @@ export const UserProfile = ({ user, setUsers }) => {
         }
     }
 
+    // console.log(user?.property)
+
     const handleDelete = () => {
-        deleteUserProfile(user.id)
-        .then(users => setUsers(users))
-        .then(() => {
-          setShowAlert(false)
-          navigate(`/users`)
-        })
-      };   
+        if (user?.property === null){
+
+            deleteUserProfile(user.id)
+            .then(users => setUsers(users))
+            .then(() => {
+                setShowAlert(false)
+                navigate(`/users`)
+            })
+        } else {
+            window.alert("This user is assigned to a property and must be UNASSIGNED first before you can delete them.");
+
+            // Update the state to control the visibility of the alert
+            setShowAlert(false);
+        }
+      }      
       
     const handleCancel = () => {
         setShowAlert(false) 
@@ -37,8 +47,9 @@ export const UserProfile = ({ user, setUsers }) => {
     const deleteUserProfileAlert = () => {
         return (<>
         <Alert variant="danger" key={'danger'}>
-          Are you sure you want to delete this user? If a tenant is attached, it will also delete all of their information.
-          <br></br><Link onClick={handleDelete}>Yes</Link> / <Link onClick={handleCancel}>No</Link>
+          Are you sure you want to delete this user? It will delete all of their information.
+          <br></br>
+          <Link onClick={handleDelete}>Yes</Link> / <Link onClick={handleCancel}>No</Link>
         </Alert>
         </>)
       }

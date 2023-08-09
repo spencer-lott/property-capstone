@@ -5,7 +5,7 @@ import { getAllUserProfilesWithProperty } from "../APIManagers/UserProfileManage
 
 export const AssignTenantEdit = () => {
     const navigate = useNavigate()
-    const { propertyId} = useParams()
+    const { propertyId } = useParams()
     const [profiles, setProfiles] = useState([])
     const [unassignedTenants, setUnassignedTenants] = useState([])  
     const [originalStreetAddress, setOriginalStreetAddress] = useState("")
@@ -33,7 +33,7 @@ export const AssignTenantEdit = () => {
         type: "",
         sizeDescription: "",
         rent: 0,
-        vacant: true,
+        vacant: false,
         userProfileId: -1
     })
 
@@ -67,17 +67,6 @@ export const AssignTenantEdit = () => {
 
         return editProperty(propertyToEdit).then(navigate(`/properties/${propertyId}`))
     }
-
-    // const selectUnassignedTenant = (event) => {
-    //     const selectedTenant = parseInt(event.target.value);
-    //     // const selectedTenant = unassignedTenants.find(userProfile => userProfile.id);
-        
-    //     if (selectedTenant) {
-    //         const copy = { ...property };
-    //         copy.userProfileId = selectedTenant;
-    //         update(copy);
-    //     }
-    // }
 
     const selectList = (event) => {
         const selectedTenantId = parseInt(event.target.value)
