@@ -13,5 +13,7 @@ namespace PropertyManager.Repositories
         void Update(UserProfile userProfile);
 
         UserProfile GetUserProfileByIdWithProperty(int id);
+        List<UserProfile> Search(string criterion);
+
     }
 }

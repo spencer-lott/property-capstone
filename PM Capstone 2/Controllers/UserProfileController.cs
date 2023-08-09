@@ -93,5 +93,12 @@ namespace PropertyManager.Controllers
             return NoContent();
         }
 
+        [HttpGet("search")]
+        public IActionResult Search(string q)
+        {
+            return Ok(_userProfileRepository.Search(q));
+        }
+
+
     }
 }
