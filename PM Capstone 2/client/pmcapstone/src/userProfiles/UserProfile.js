@@ -33,7 +33,7 @@ export const UserProfile = ({ user, setUsers }) => {
                 navigate(`/users`)
             })
         } else {
-            window.alert("This user is assigned to a property and must be UNASSIGNED first before you can delete them.");
+            window.alert(`This user is assigned to the property at ${user?.property.streetAddress} and must be UNASSIGNED first before you can delete them.`);
 
             // Update the state to control the visibility of the alert
             setShowAlert(false);

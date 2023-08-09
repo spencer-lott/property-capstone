@@ -9,5 +9,7 @@ namespace PropertyManager.Repositories
         List<Property> GetAll();
         Property GetById(int id);
         void Update(Property property);
+
+        List<Property> Search(string criterion);
     }
 }
