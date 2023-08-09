@@ -323,5 +323,65 @@ namespace PropertyManager.Repositories
             }
         }
 
+        public List<UserProfile> Search(string criterion)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    var sql =
+                        @"
+                        SELECT u.Id AS UId, u.FirstName, u.LastName, u.Email, u.IsEmployee, u.IsAdmin, u.Phone, u.Employment, u.EmergencyContactName, u.EmergencyContactPhone, u.GeneralNotes, p.Id AS PId, p.StreetAddress, p.City, p.State, p.Type, p.SizeDescription, p.Rent, p.Vacant, p.UserProfileId 
+                        FROM UserProfile u
+                        LEFT JOIN Property p ON u.Id = p.UserProfileId
+                        WHERE FirstName LIKE @Criterion OR LastName LIKE @Criterion OR Email LIKE @Criterion OR Phone LIKE @Criterion";
+
+                    cmd.CommandText = sql;
+                    DbUtils.AddParameter(cmd, "@Criterion", $"%{criterion}%");
+                    var reader = cmd.ExecuteReader();
+
+                    var userProfiles = new List<UserProfile>();
+                    while (reader.Read())
+                    {
+                        userProfiles.Add(new UserProfile()
+                        {
+                            Id = DbUtils.GetInt(reader, "UId"),
+                            FirstName = DbUtils.GetString(reader, "FirstName"),
+                            LastName = DbUtils.GetString(reader, "LastName"),
+                            Email = DbUtils.GetString(reader, "Email"),
+                            IsEmployee = reader.GetBoolean(reader.GetOrdinal("IsEmployee")),
+                            IsAdmin = reader.GetBoolean(reader.GetOrdinal("IsAdmin")),
+                            Phone = DbUtils.GetString(reader, "Phone"),
+                            Employment = DbUtils.GetString(reader, "Employment"),
+                            EmergencyContactName = DbUtils.GetString(reader, "EmergencyContactName"),
+                            EmergencyContactPhone = DbUtils.GetString(reader, "EmergencyContactPhone"),
+                            GeneralNotes = DbUtils.GetString(reader, "GeneralNotes"),
+                            Property = reader.IsDBNull(reader.GetOrdinal("PId"))
+                                ? null
+                                : new Property()
+                                {
+                                    Id = DbUtils.GetInt(reader, "PId"),
+                                    StreetAddress = DbUtils.GetString(reader, "StreetAddress"),
+                                    City = DbUtils.GetString(reader, "City"),
+                                    State = DbUtils.GetString(reader, "State"),
+                                    Type = DbUtils.GetString(reader, "Type"),
+                                    SizeDescription = DbUtils.GetString(reader, "SizeDescription"),
+                                    Rent = DbUtils.GetInt(reader, "Rent"),
+                                    Vacant = reader.GetBoolean(reader.GetOrdinal("Vacant")),
+                                    UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
+                                }
+                        });
+                    }
+
+                    reader.Close();
+
+                    return userProfiles;
+                }
+            }
+        }
+
+
+
     }
 }

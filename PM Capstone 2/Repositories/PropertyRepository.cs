@@ -188,15 +188,6 @@ namespace PropertyManager.Repositories
                         FROM Property
                         WHERE StreetAddress LIKE @Criterion OR City LIKE @Criterion OR State LIKE @Criterion";
 
-                    //if (sortDescending)
-                    //{
-                    //    sql += " ORDER BY p.DateCreated DESC";
-                    //}
-                    //else
-                    //{
-                    //    sql += " ORDER BY p.DateCreated";
-                    //}
-
                     cmd.CommandText = sql;
                     DbUtils.AddParameter(cmd, "@Criterion", $"%{criterion}%");
                     var reader = cmd.ExecuteReader();

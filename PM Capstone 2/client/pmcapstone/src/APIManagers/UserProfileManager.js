@@ -61,3 +61,7 @@ export const editUserProfile = (user) => {
       body: JSON.stringify(user)
   }).then(() => getAllUserProfiles())
 }
+
+export const searchUserProfiles = (q) => {
+  return fetch(`${baseUrl}/search?q=${q}`).then((res) => res.json())
+}
