@@ -53,7 +53,7 @@ export const PropertyDetails = () => {
         setShowAlert(false);
     };
 
-    const deletePostAlert = () => {
+    const deletePropertyAlert = () => {
         return (
             <Alert variant="danger" key={'danger'}>
                 Are you sure you want to delete this property?
@@ -77,7 +77,7 @@ export const PropertyDetails = () => {
                     <div>Tenant: {tenantOrNoTenant()}</div>
                     <Button onClick={() => navigate(`/properties/edit/${property.id}`)}>Edit</Button>
                     <Button variant="danger" type="delete" onClick={() => setShowAlert(true)}>Delete</Button>
-                    {showAlert && deletePostAlert()}
+                    {showAlert && deletePropertyAlert()}
                 </Col>
                 <Col>
                     <h1>Maintenance History</h1>

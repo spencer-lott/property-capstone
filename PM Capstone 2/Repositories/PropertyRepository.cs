@@ -175,5 +175,56 @@ namespace PropertyManager.Repositories
             }
         }
 
+        public List<Property> Search(string criterion)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    var sql =
+                        @"
+                        SELECT Id, StreetAddress, City, State, Type, SizeDescription, Rent, Vacant, UserProfileId 
+                        FROM Property
+                        WHERE StreetAddress LIKE @Criterion OR City LIKE @Criterion OR State LIKE @Criterion";
+
+                    //if (sortDescending)
+                    //{
+                    //    sql += " ORDER BY p.DateCreated DESC";
+                    //}
+                    //else
+                    //{
+                    //    sql += " ORDER BY p.DateCreated";
+                    //}
+
+                    cmd.CommandText = sql;
+                    DbUtils.AddParameter(cmd, "@Criterion", $"%{criterion}%");
+                    var reader = cmd.ExecuteReader();
+
+                    var properties = new List<Property>();
+                    while (reader.Read())
+                    {
+                        properties.Add(new Property()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            StreetAddress = DbUtils.GetString(reader, "StreetAddress"),
+                            City = DbUtils.GetString(reader, "City"),
+                            State = DbUtils.GetString(reader, "State"),
+                            Type = DbUtils.GetString(reader, "Type"),
+                            SizeDescription = DbUtils.GetString(reader, "SizeDescription"),
+                            Rent = DbUtils.GetInt(reader, "Rent"),
+                            Vacant = reader.GetBoolean(reader.GetOrdinal("Vacant")),
+                            UserProfileId = DbUtils.GetNullableInt(reader, "UserProfileId")
+                        });
+                    }
+
+                    reader.Close();
+
+                    return properties;
+                }
+            }
+        }
+
+
     }
 }

@@ -38,4 +38,9 @@ export const deleteProperty = (id) => {
     }).then(() => getAllProperties())
 }
 
+export const searchProperties = (q) => {
+    return fetch(`${baseUrl}/search?q=${q}`).then((res) => res.json())
+}
+
+// https://localhost:5001/api/Property/search?q=tx
 
