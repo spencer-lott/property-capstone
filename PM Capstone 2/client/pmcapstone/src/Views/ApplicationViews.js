@@ -18,6 +18,10 @@ export const ApplicationViews = () => {
     const localPMUser = localStorage.getItem("userProfile")
     const PMUserObject = JSON.parse(localPMUser)
 
+    console.log(PMUserObject)
+
+    // if (PMUserObject.isEmployee === true)
+
     return(
         <Routes>
         {/* Home/Landing Page */}
@@ -42,7 +46,6 @@ export const ApplicationViews = () => {
 
         {/*Requests*/}
         <Route path="/requests" element={<AllRequestsList />} />
-
 
         </Routes>
     )
