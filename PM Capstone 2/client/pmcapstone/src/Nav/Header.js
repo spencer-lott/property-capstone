@@ -56,7 +56,7 @@ export default function Header({isLoggedIn, setIsLoggedIn}) {
             
             {isLoggedIn &&
               <>
-                <NavItem>
+                <NavItem style={{zIndex: "5"}}>
                   <a aria-current="page" className="nav-link"
                     style={{ cursor: "pointer" }} onClick={() => {
                       logout()

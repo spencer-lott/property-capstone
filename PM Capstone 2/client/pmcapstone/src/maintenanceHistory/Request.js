@@ -32,19 +32,19 @@ export const Request = ({ request }) => {
         }
       }, [request.dateCompleted]);
 
-const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString()
-}
-
-const completedStatus = () => {
-    if (request.dateCompleted === '1999-09-09T13:40:50.993'){
-        return <div style={{color: "red"}}>INCOMPLETE</div>
-    } else {
-        const formattedDate = formatDate(request.dateCompleted)
-        return <div style={{color: "green"}}>{formattedDate} </div>
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString()
     }
-}
+
+    const completedStatus = () => {
+        if (request.dateCompleted === '1999-09-09T13:40:50.993'){
+            return <div style={{color: "red"}}>INCOMPLETE</div>
+        } else {
+            const formattedDate = formatDate(request.dateCompleted)
+            return <div style={{color: "green"}}>{formattedDate} </div>
+        }
+    }
 
     return(
         <>
