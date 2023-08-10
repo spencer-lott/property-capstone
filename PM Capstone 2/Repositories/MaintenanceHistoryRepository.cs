@@ -115,6 +115,44 @@ namespace PropertyManager.Repositories
             }
         }
 
+        //public List<MaintenanceHistory> GetMaintenanceHistoryByUserProfileId(int userProfileId)
+        //{
+        //    using (var conn = Connection)
+        //    {
+        //        conn.Open();
+        //        using (var cmd = conn.CreateCommand())
+        //        {
+        //            cmd.CommandText = @"
+        //                SELECT Id, Description, DateCompleted, DateRequested, PropertyId, UserProfileId FROM MaintenanceHistory
+        //                WHERE PropertyId = @propertyId
+        //                ORDER BY DateRequested Desc";
+
+        //            cmd.Parameters.AddWithValue("@propertyId", propertyId);
+        //            var reader = cmd.ExecuteReader();
+
+        //            var notes = new List<MaintenanceHistory>();
+
+        //            while (reader.Read())
+        //            {
+        //                notes.Add(new MaintenanceHistory()
+        //                {
+        //                    Id = DbUtils.GetInt(reader, "Id"),
+        //                    Description = DbUtils.GetString(reader, "Description"),
+        //                    DateCompleted = DbUtils.GetDateTime(reader, "DateCompleted"),
+        //                    DateRequested = DbUtils.GetDateTime(reader, "DateRequested"),
+        //                    PropertyId = DbUtils.GetInt(reader, "PropertyId"),
+        //                    UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
+        //                });
+        //            }
+
+        //            reader.Close();
+
+        //            return notes;
+        //        }
+        //    }
+        //}
+
+
         public List<MaintenanceHistory> GetAllMaintenanceHistoryWithProperty()
         {
             using (var conn = Connection)
