@@ -8,6 +8,7 @@ export const MaintenanceHistoryEdit = () => {
     const PMUserObject = JSON.parse(localPMUser)
     const navigate = useNavigate()
     const {noteId, mhpropertyId} = useParams()
+    const [hideDateCompleted, setHideDateCompleted] = useState(false)
     const [note, update] = useState({
         dateCompleted: '1999-09-09T13:40:50.994Z', 
         description: "", 
@@ -33,6 +34,9 @@ export const MaintenanceHistoryEdit = () => {
         })
     }, [mhpropertyId])
 
+    useEffect(() => {
+        PMUserObject.isEmployee === false ? setHideDateCompleted(true) : setHideDateCompleted(false)
+    })
 
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
@@ -70,7 +74,13 @@ export const MaintenanceHistoryEdit = () => {
             PropertyId: mhpropertyId,
             DateRequested: originalDateRequested
         }
+        if(PMUserObject.isEmployee === false) {
+            return editMaintenanceHistory(noteToSentToAPI).then(navigate(`/my-requests/${PMUserObject.id}`))
+        } else{
+
+
         return editMaintenanceHistory(noteToSentToAPI).then(navigate(`/properties/${mhpropertyId}`))
+        }
     }
 
     return (
@@ -99,22 +109,27 @@ export const MaintenanceHistoryEdit = () => {
                         </div>
                 </fieldset>
 
-                { <fieldset>
-                        <div className="form-group">
-                            <label htmlFor="date-completed">Completed on</label>
-                            <input id="title" type="date" className="form-control"
-                                value={note.dateCompleted}
-                                onChange={
-                                    (event) => {
-                                        const copy = {
-                                            ...note
+                { 
+                !hideDateCompleted ? (
+                    <fieldset>
+                            <div className="form-group">
+                                <label htmlFor="date-completed">Completed on</label>
+                                <input id="title" type="date" className="form-control"
+                                    value={note.dateCompleted}
+                                    onChange={
+                                        (event) => {
+                                            const copy = {
+                                                ...note
+                                            }
+                                            copy.dateCompleted = event.target.value
+                                            update(copy)
                                         }
-                                        copy.dateCompleted = event.target.value
-                                        update(copy)
-                                    }
-                                }/>
-                        </div>
-                </fieldset>}
+                                    }/>
+                            </div>
+                    </fieldset>
+                ) :
+                
+                <></>}
 
                 <button className="btn btn-primary"
                     onClick={
