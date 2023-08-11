@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
-import {  getAllUserProfiles, getAllUserProfilesWithProperty } from "../APIManagers/UserProfileManager"
-import { Button, Col, Container, Row, Table } from "reactstrap";
+import { getAllUserProfilesWithProperty } from "../APIManagers/UserProfileManager"
+import { Col, Container, Row, Table } from "reactstrap";
+import { Button } from "react-bootstrap"
 import { UserProfile } from "./UserProfile";
 import { useNavigate } from "react-router-dom";
 

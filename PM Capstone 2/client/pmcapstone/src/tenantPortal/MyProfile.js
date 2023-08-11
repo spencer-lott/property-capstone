@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Col, Container, Row } from "reactstrap";
+import { Col, Container, Row } from "reactstrap";
 import { getUserProfileByIdWithProperty } from "../APIManagers/UserProfileManager";
-
+import { Button } from "react-bootstrap"
 
 export const MyProfile = () => {
     const localPMUser = localStorage.getItem("userProfile")

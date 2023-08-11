@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Col, Container, Row, Table } from "reactstrap";
-import { Alert } from "react-bootstrap";
+import { Col, Container, Row, Table } from "reactstrap";
+import { Alert, Button } from "react-bootstrap";
 import { getAllProperties, searchProperties } from "../APIManagers/PropertiesManager";
 
 export const PropertyList = () => {
@@ -69,7 +69,7 @@ export const PropertyList = () => {
 
   return (
     <>
-      <Container fluid className="properties-list">
+      <Container fluid className="properties-list" style={{backgroundColor:"#f2f3f4"}}>
         <Row>
           <Col>
             <Button onClick={create}>Create New</Button>

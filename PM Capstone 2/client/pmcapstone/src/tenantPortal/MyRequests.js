@@ -2,8 +2,10 @@ import { useEffect, useState } from "react"
 import { getAllMaintenanceHistory } from "../APIManagers/MaintenanceHistoryManager"
 import { getUserProfileByIdWithProperty } from "../APIManagers/UserProfileManager"
 import { TenantsRequests } from "./TenantsRequests"
-import { Button, Col, Table } from "reactstrap"
+import { Col, Table } from "reactstrap"
 import { useNavigate, useParams } from "react-router-dom"
+import { Button } from "react-bootstrap"
+
 
 export const MyRequests = () => {
     const localPMUser = localStorage.getItem("userProfile")

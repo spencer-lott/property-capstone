@@ -64,7 +64,7 @@ export const PropertyDetails = () => {
     };
 
     return (
-        <Container>
+        <Container style={{backgroundColor:"#f2f3f4"}}>
             <Row>
                 <Col>
                     <div>Street Address: {property.streetAddress}</div>

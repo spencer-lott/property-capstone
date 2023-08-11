@@ -24,8 +24,6 @@ export const AssignTenantEdit = () => {
         setUnassignedTenants(filtered)
     }, [profiles])
 
-    console.log(unassignedTenants)
-
     const [property, update] = useState({
         streetAddress: "",
         city: "",
