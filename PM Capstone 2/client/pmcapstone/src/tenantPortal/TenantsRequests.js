@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { deleteMaintenanceHistory, getAllMaintenanceHistory } from "../APIManagers/MaintenanceHistoryManager";
 
-export const TenantsRequests = ({personalRequest, setAllHistory}) => {
+export const TenantsRequests = ({personalRequest, setAllHistory, user}) => {
     const [showLinks, setShowLinks] = useState(false)
 
     const formatDate = (dateString) => {
@@ -45,7 +45,7 @@ export const TenantsRequests = ({personalRequest, setAllHistory}) => {
                 {
                     showLinks ? (
                         <>
-                        <td><Link> Edit</Link></td>
+                        <td><Link to={`/maintenance-history/edit/${personalRequest.id}/${user?.property?.id}`}> Edit</Link></td>
                         <td><Link onClick={handleDelete}> Delete</Link></td>
                         
                         </>

@@ -24,7 +24,13 @@ export const MaintenanceHistoryForm = () => {
             PropertyId: propertyId,
             DateRequested: new Date().toISOString()
         }
-        return addMaintenanceHistory(noteToSentToAPI).then(navigate(`/properties/${propertyId}`))
+
+        if(PMUserObject.isEmployee === false) {
+            return addMaintenanceHistory(noteToSentToAPI).then(navigate(`/my-requests/${PMUserObject.id}`))
+        } else{
+
+            return addMaintenanceHistory(noteToSentToAPI).then(navigate(`/properties/${propertyId}`))
+        }
     }
 
     return (
