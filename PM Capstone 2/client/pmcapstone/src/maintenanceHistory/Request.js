@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom"
 
 export const Request = ({ request }) => {
     const navigate = useNavigate()
+    const [isChecked, setIsChecked] = useState(false); // Set initial value to false
+    const [showCheckbox, setShowCheckbox] = useState(false)
 
     const [users, setUsers] = useState([])
     useEffect(() => {
@@ -18,9 +20,6 @@ export const Request = ({ request }) => {
             }
         }
     }
-
-    const [isChecked, setIsChecked] = useState(false); // Set initial value to false
-    const [showCheckbox, setShowCheckbox] = useState(false)
 
     useEffect(() => {
         setIsChecked(false)
@@ -55,7 +54,8 @@ export const Request = ({ request }) => {
                 <input className="tasksInput" type="checkbox"  value={isChecked} checked={isChecked} onChange={() => navigate(`/maintenance-history/edit/${request.id}/${request?.property.id}`)}  />
                 </td>
                     : <td>COMPLETE</td>}
-                <td>Date requested: {formatDate(request.dateRequested)}<br></br> Date completed: {completedStatus()}</td>
+                <td>{completedStatus()}</td>
+                <td>{formatDate(request.dateRequested)}</td>
                 <td>{request.description}</td>
                 {requestBy()}
                 <td><Link to={`/properties/${request?.property?.id}`}>{request?.property?.streetAddress}</Link></td>

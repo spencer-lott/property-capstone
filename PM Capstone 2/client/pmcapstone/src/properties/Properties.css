@@ -12,11 +12,11 @@
 
 }
 
-.col1{
+.pcol1{
     /* border: dotted black; */
 }
 
-.col2{
+.pcol2{
     /* border: dotted purple; */
     display: flex;
     justify-content: flex-end;
@@ -43,12 +43,12 @@
 }
 
 
-.col3{
+.pcol3{
     padding-top: 5px;
     /* border: dotted lime; */
 }
 
-.col4{
+.pcol4{
     padding-top: 5px; 
 }
 /* --------------------------------------- */

@@ -104,14 +104,14 @@ export const TenantsList = () => {
                 <Col>
                 {searchResults.length > 0 && (
                     <div>
-                        <Link className="cancel-search" onClick={handleCancelSearch}>Quit Search</Link>
+                        <Link className="tenant-cancel-search" onClick={handleCancelSearch}>Quit Search</Link>
                         <h3>Search Results:</h3>
                         <Table>
                             <thead>
                                 <tr>
                                     <th>Name</th>
                                     <th>Phone</th>
-                                    <th>Email</th>
+                                    <th>Email Address</th>
                                     <th>Street Address</th>
                                 </tr>
                             </thead>

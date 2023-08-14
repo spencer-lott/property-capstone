@@ -21,6 +21,17 @@
 
 }
 
-.cancel-search{
+.tenant-cancel-search{
     color: red;
+}
+
+/* ------------------------------------------ */
+.tenant-details-header{
+    /* text-align: center; */
+    margin: .5%;
+}
+
+.tenant-details{
+    padding-top: 2.5%;
+    text-decoration: underline;
 }

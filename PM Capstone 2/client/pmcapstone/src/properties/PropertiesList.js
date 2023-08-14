@@ -73,11 +73,11 @@ export const PropertyList = () => {
       <Container className="properties-list">
         <h1 className="properties-list-header">All Properties</h1>
         <Row>
-          <Col className="col1">
+          <Col className="pcol1">
             <Button onClick={create}>Create New</Button>
             </Col>
 
-              <Col className="col2">
+              <Col className="pcol2">
               <div>
                 <form className="property-search-form">
                   <input className="property-search"
@@ -142,7 +142,7 @@ export const PropertyList = () => {
               <div className="switch-view">
               </div>
               </Row>
-              <Col className="col3">
+              <Col className="pcol3">
               <Button variant="warning" onClick={switchView}>Filter Vacancies</Button>
 
               <Table>
@@ -181,7 +181,7 @@ export const PropertyList = () => {
           )}
         </Row>
       :<>
-        <Col className="col4">
+        <Col className="pcol4">
         <Button variant="warning" onClick={switchView}>Unfilter Vacancies</Button>
         <Table>
           <thead>

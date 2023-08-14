@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react"
-import { getAllMaintenanceHistory, getAllMaintenanceHistoryWithProperty } from "../APIManagers/MaintenanceHistoryManager"
+import { getAllMaintenanceHistoryWithProperty } from "../APIManagers/MaintenanceHistoryManager"
 import { Request } from "./Request"
 import { Button, Col, Container, Row, Table } from "reactstrap";
-import { Alert } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import "./Requests.css"
 
 
 export const AllRequestsList = () => {
@@ -13,17 +12,18 @@ export const AllRequestsList = () => {
         getAllMaintenanceHistoryWithProperty().then(allRequests => setRequests(allRequests))
     },[])
 
-
     return (
-        <><Container style={{backgroundColor:"#f2f3f4"}}>
-        <h1>All Requests</h1>
+        <>
+        <Container className="all-requests-list">
+        <h1 className="requests-header">All Requests</h1>
             <Col>
                 <Table>
                     <thead>
                         <tr>
             
                             <th>Status</th>
-                            <th>Date</th>
+                            <th>Date Completed</th>
+                            <th>Date Requested</th>
                             <th>Description</th>
                             <th>Tenant</th>
                             <th>Property Address</th>
@@ -34,7 +34,7 @@ export const AllRequestsList = () => {
                 })} 
                 </Table>
             </Col>
-                </Container>
+        </Container>
         </>
     )
 }

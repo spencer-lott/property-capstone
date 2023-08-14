@@ -1,7 +1,8 @@
-import { Link, useNavigate, useParams } from "react-router-dom"
-import { deleteUserProfile, getUserProfileByIdWithProperty } from "../APIManagers/UserProfileManager"
+import { Link, useNavigate } from "react-router-dom"
+import { deleteUserProfile } from "../APIManagers/UserProfileManager"
 import { Alert } from "react-bootstrap";
-import { useEffect, useState } from "react"
+import { useState } from "react"
+import "./UserProfiles.css"
 
 export const UserProfile = ({ user, setUsers }) => {
     const [showAlert, setShowAlert] = useState(false)
