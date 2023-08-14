@@ -71,6 +71,7 @@ export const PropertyList = () => {
   return (
     <>
       <Container className="properties-list">
+        <h1 className="properties-list-header">All Properties</h1>
         <Row>
           <Col className="col1">
             <Button onClick={create}>Create New</Button>
@@ -79,14 +80,17 @@ export const PropertyList = () => {
               <Col className="col2">
               <div>
                 <form className="property-search-form">
-                  <input
+                  <input className="property-search"
+                    placeholder="search"
                     type="text"
                     id="searchQuery"
                     value={searchQuery}
                     onChange={handleSearchInputChange}
                   />
                   <Button onClick={handleSearchButtonClick} color="primary">
-                    Search
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
                   </Button>
                   {showAlert && emptySearchAlert()}
                 </form>
@@ -94,8 +98,8 @@ export const PropertyList = () => {
               </Col>
 
             {searchResults.length > 0 && (
-              <div>
-                <div><Link onClick={handleCancelSearch}>Quit Search</Link></div>
+              <div className="search-results">
+                <Link className="cancel-search" onClick={handleCancelSearch}>Quit Search</Link>
                 <h3>Search Results:</h3>
                 <Table>
                   <thead>
@@ -136,10 +140,11 @@ export const PropertyList = () => {
             <>
             <Row>
               <div className="switch-view">
-              <Button onClick={switchView}>Show Vacant Properties</Button>
               </div>
               </Row>
               <Col className="col3">
+              <Button variant="warning" onClick={switchView}>Filter Vacancies</Button>
+
               <Table>
                 <thead>
                   <tr>
@@ -176,8 +181,8 @@ export const PropertyList = () => {
           )}
         </Row>
       :<>
-        <Col>
-        <Button onClick={switchView}>Show All Properties</Button>
+        <Col className="col4">
+        <Button variant="warning" onClick={switchView}>Unfilter Vacancies</Button>
         <Table>
           <thead>
             <tr>
