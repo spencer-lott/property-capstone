@@ -4,7 +4,7 @@ import { deleteProperty, getPropertyById } from "../APIManagers/PropertiesManage
 import { Alert, Button, Col, Container, Row, Table } from "react-bootstrap";
 import { getMaintenanceHistoryByPropertyId } from "../APIManagers/MaintenanceHistoryManager";
 import { MaintenanceHistory } from "../maintenanceHistory/MaintenanceHistory";
-import "./PropertiesList.css"
+import "./Properties.css"
 
 export const PropertyDetails = () => {
     const [property, setProperty] = useState();

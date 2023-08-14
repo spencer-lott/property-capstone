@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Col, Container, Row, Table } from "reactstrap";
 import { Alert, Button } from "react-bootstrap";
 import { getAllProperties, searchProperties } from "../APIManagers/PropertiesManager";
-import "./PropertiesList.css"
+import "./Properties.css"
 
 export const PropertyList = () => {
   const navigate = useNavigate();

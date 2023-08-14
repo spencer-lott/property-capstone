@@ -4,6 +4,7 @@ import { Button, Col, Container, Row, Table } from "reactstrap";
 import { Alert } from "react-bootstrap";
 import { Tenant } from "./Tenant";
 import { getAllUserProfilesWithProperty, searchUserProfiles } from "../APIManagers/UserProfileManager";
+import "./Tenants.css"
 
 export const TenantsList = () => {
     const navigate = useNavigate()
@@ -72,29 +73,38 @@ export const TenantsList = () => {
             </Alert>
         )
     }
-    
 
     return (<>
-        <Container fluid className="tenants-list" style={{backgroundColor:"#f2f3f4"}}>
+        <Container className="tenants-list">
+            <h1 className="tenants-list-header">All Tenants</h1>
             <Row>
-                <Col>
+                <Col className="col1">
                 <div>
                 <form className="tenant-search-form">
                     <input
+                    className="tenant-search"
+                    placeholder="search"
                     type="text"
                     id="searchQuery"
                     value={searchQuery}
                     onChange={handleSearchInputChange}
                     />
                     <Button onClick={handleSearchButtonClick} color="primary">
-                    Search
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
                     </Button>
                     {showAlert && emptySearchAlert()}
                 </form>
                 </div>
+                </Col>
+                </Row>
+
+                <Row>
+                <Col>
                 {searchResults.length > 0 && (
                     <div>
-                        <div><Link onClick={handleCancelSearch}>Quit Search</Link></div>
+                        <Link className="cancel-search" onClick={handleCancelSearch}>Quit Search</Link>
                         <h3>Search Results:</h3>
                         <Table>
                             <thead>
@@ -122,11 +132,14 @@ export const TenantsList = () => {
                         </Table>
                     </div>
                 )}
+                
           </Col>
+          
             </Row>
             <Row>
                 {!hideTenants && searchResults.length === 0 && (
-                <Col>
+                    <>
+                <Col className="col2">
                     <Table>
                         <thead>
                             <tr>
@@ -141,6 +154,7 @@ export const TenantsList = () => {
                 })} 
                     </Table>
                 </Col>
+                </>
                 )}
             </Row>
         </Container>

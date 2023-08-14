@@ -1,0 +1,26 @@
+.tenants-list-header{
+    text-align: center;
+    margin: 1.5%;
+}
+
+.col1{
+    /* border: dotted black; */
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+.col2{
+    /* border: dotted lime; */
+}
+
+.tenant-search{
+    border-radius: 9px 9px 9px 9px;
+    padding: 4.25px;
+    width: 400px;
+
+}
+
+.cancel-search{
+    color: red;
+}
