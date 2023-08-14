@@ -27,7 +27,7 @@ export const UserProfilesList = () => {
             <h1 className="users-list-header">All User Profiles</h1>
             <Row>
                 <Col>
-                    <Button onClick={create}>New User</Button>
+                    <Button onClick={create}>Add New User</Button>
                 </Col>
             </Row>
             <Row>

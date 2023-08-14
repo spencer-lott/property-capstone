@@ -145,7 +145,7 @@ export const TenantsList = () => {
                             <tr>
                                 <th>Name</th>
                                 <th>Phone</th>
-                                <th>Email</th>
+                                <th>Email Address</th>
                                 <th>Street Address</th>
                             </tr>
                         </thead>
