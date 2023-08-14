@@ -28,7 +28,7 @@ export const TenantDetails = () => {
     
     return (
         <>
-        <Container>
+        <Container style={{backgroundColor:"#f2f3f4"}}>
         <Row>
             <Col>
                 <div>Name: {tenant?.firstName} {tenant?.lastName}</div>

@@ -22,7 +22,7 @@ export const UserProfilesList = () => {
     }
 
     return (<>
-        <Container fluid className="users-list">
+        <Container fluid className="users-list" style={{backgroundColor:"#f2f3f4"}}> 
             <Row>
                 <Col>
                 <Button onClick={create}>New User</Button>

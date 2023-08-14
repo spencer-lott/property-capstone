@@ -1,0 +1,32 @@
+.properties-list{
+    border: dotted red;
+}
+
+.col1{
+    border: dotted black;
+}
+
+.col2{
+    border: dotted purple;
+}
+
+.switch-view-row{
+    justify-content: flex-end;
+}
+
+.col3{
+    border: dotted lime;
+}
+/* --------------------------------------- */
+
+.property-details{
+    border: dotted green;
+}
+.property-details-header{
+    text-align: center;
+    margin: 2%;
+}
+
+.h3-property-details{
+    text-decoration: underline;
+}

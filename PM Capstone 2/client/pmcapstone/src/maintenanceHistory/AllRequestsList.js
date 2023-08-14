@@ -15,12 +15,13 @@ export const AllRequestsList = () => {
 
 
     return (
-        <>
+        <><Container style={{backgroundColor:"#f2f3f4"}}>
         <h1>All Requests</h1>
             <Col>
                 <Table>
                     <thead>
                         <tr>
+            
                             <th>Status</th>
                             <th>Date</th>
                             <th>Description</th>
@@ -33,6 +34,7 @@ export const AllRequestsList = () => {
                 })} 
                 </Table>
             </Col>
+                </Container>
         </>
     )
 }

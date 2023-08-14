@@ -75,7 +75,7 @@ export const TenantsList = () => {
     
 
     return (<>
-        <Container fluid className="tenants-list">
+        <Container fluid className="tenants-list" style={{backgroundColor:"#f2f3f4"}}>
             <Row>
                 <Col>
                 <div>

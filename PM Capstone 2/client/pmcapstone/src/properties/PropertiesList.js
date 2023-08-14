@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Col, Container, Row, Table } from "reactstrap";
 import { Alert, Button } from "react-bootstrap";
 import { getAllProperties, searchProperties } from "../APIManagers/PropertiesManager";
+import "./PropertiesList.css"
 
 export const PropertyList = () => {
   const navigate = useNavigate();
@@ -69,24 +70,28 @@ export const PropertyList = () => {
 
   return (
     <>
-      <Container fluid className="properties-list" style={{backgroundColor:"#f2f3f4"}}>
+      <Container className="properties-list">
         <Row>
-          <Col>
+          <Col className="col1">
             <Button onClick={create}>Create New</Button>
-            <div>
-              <form className="property-search-form">
-                <input
-                  type="text"
-                  id="searchQuery"
-                  value={searchQuery}
-                  onChange={handleSearchInputChange}
-                />
-                <Button onClick={handleSearchButtonClick} color="primary">
-                  Search
-                </Button>
-                {showAlert && emptySearchAlert()}
-              </form>
-            </div>
+            </Col>
+
+              <Col className="col2">
+              <div>
+                <form className="property-search-form">
+                  <input
+                    type="text"
+                    id="searchQuery"
+                    value={searchQuery}
+                    onChange={handleSearchInputChange}
+                  />
+                  <Button onClick={handleSearchButtonClick} color="primary">
+                    Search
+                  </Button>
+                  {showAlert && emptySearchAlert()}
+                </form>
+              </div>
+              </Col>
 
             {searchResults.length > 0 && (
               <div>
@@ -124,13 +129,17 @@ export const PropertyList = () => {
                 </Table>
               </div>
             )}
-          </Col>
         </Row>
           {!showVacant ?
         <Row>
           {!hideProperties && searchResults.length === 0 && (
-            <Col>
+            <>
+            <Row>
+              <div className="switch-view">
               <Button onClick={switchView}>Show Vacant Properties</Button>
+              </div>
+              </Row>
+              <Col className="col3">
               <Table>
                 <thead>
                   <tr>
@@ -162,6 +171,8 @@ export const PropertyList = () => {
                 </tbody>
               </Table>
             </Col>
+            </>
+
           )}
         </Row>
       :<>
