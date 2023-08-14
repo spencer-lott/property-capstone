@@ -86,9 +86,8 @@ export const MaintenanceHistoryEdit = () => {
     }
 
     return (<>
-
     <Container>
-        <Col className="form-col"></Col>
+        <Col className="form-col">
         <div className="xButton">
                 <Button  
                     style={{backgroundColor: "transparent",
@@ -148,6 +147,7 @@ export const MaintenanceHistoryEdit = () => {
                 }>
                     Submit note</button>
             </form>
+            </Col>
         </Container>
     </>
     )

@@ -5,22 +5,3 @@
 
 /* ---------------------------------- */
 
-.form-header{
-    /* text-align: center; */
-    margin: 2%;
-}
-
-.xButton{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-}
-
-.form-col{
-    max-width: 400px;
-}
-
-.form-group{
-    width: auto;
-    max-width: 400px;
-}
