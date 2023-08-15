@@ -86,3 +86,9 @@
     width: auto;
     max-width: 400px;
 }
+
+/* ------------------------------------------------- */
+.vacancy-report{
+    margin-top: 4%;
+    font-size: large;
+}
