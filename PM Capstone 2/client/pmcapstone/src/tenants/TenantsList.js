@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button, Col, Container, Row, Table } from "reactstrap";
 import { Alert } from "react-bootstrap";
 import { Tenant } from "./Tenant";
@@ -7,7 +7,6 @@ import { getAllUserProfilesWithProperty, searchUserProfiles } from "../APIManage
 import "./Tenants.css"
 
 export const TenantsList = () => {
-    const navigate = useNavigate()
     const [users, setUsers] = useState([]);
     const [filteredTenants, setFilteredTenants] = useState([])
     const [searchQuery, setSearchQuery] = useState("")

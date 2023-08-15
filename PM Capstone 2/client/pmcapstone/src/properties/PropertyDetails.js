@@ -11,8 +11,6 @@ export const PropertyDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [showAlert, setShowAlert] = useState(false);
-    const localPMUser = localStorage.getItem("userProfile");
-    const PMUserObject = JSON.parse(localPMUser);
     const [notes, setNotes] = useState([]);
 
     const tenantOrNoTenant = () => {

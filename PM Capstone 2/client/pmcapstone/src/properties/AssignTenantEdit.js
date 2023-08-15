@@ -65,6 +65,7 @@ export const AssignTenantEdit = () => {
             Vacant: property.vacant,
             UserProfileId: property.userProfileId
         }
+        return editProperty(propertyToEdit).then(navigate(`/properties/${propertyId}`))
 
     }
 

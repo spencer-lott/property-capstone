@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { getAllMaintenanceHistoryWithProperty } from "../APIManagers/MaintenanceHistoryManager"
 import { Request } from "./Request"
-import { Button, Col, Container, Row, Table } from "reactstrap";
+import { Col, Container, Table } from "reactstrap";
 import "./Requests.css"
 
 
