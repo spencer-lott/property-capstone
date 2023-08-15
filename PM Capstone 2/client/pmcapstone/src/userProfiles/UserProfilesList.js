@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
-import {  getAllUserProfiles, getAllUserProfilesWithProperty } from "../APIManagers/UserProfileManager"
-import { Button, Col, Container, Row, Table } from "reactstrap";
+import { getAllUserProfilesWithProperty } from "../APIManagers/UserProfileManager"
+import { Col, Container, Row, Table } from "reactstrap";
+import { Button } from "react-bootstrap"
 import { UserProfile } from "./UserProfile";
 import { useNavigate } from "react-router-dom";
+import "./UserProfiles.css"
 
 export const UserProfilesList = () => {
     const navigate = useNavigate()
@@ -21,14 +23,11 @@ export const UserProfilesList = () => {
     }
 
     return (<>
-        <Container fluid className="users-list">
+        <Container className="users-list"> 
+            <h1 className="users-list-header">All User Profiles</h1>
             <Row>
                 <Col>
-                <Button onClick={create}>New User</Button>
-
-                </Col>
-                <Col>
-                    {/* search input */}
+                    <Button onClick={create}>Add New User</Button>
                 </Col>
             </Row>
             <Row>
@@ -37,7 +36,7 @@ export const UserProfilesList = () => {
                 <thead>
                 <tr>
                     <th>Full Name</th>
-                    <th>Email</th>
+                    <th>Email Address</th>
                     <th>User Type</th>
                     <th></th>
                     <th></th>

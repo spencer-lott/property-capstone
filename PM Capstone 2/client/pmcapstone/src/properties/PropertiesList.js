@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, Col, Container, Row, Table } from "reactstrap";
-import { Alert } from "react-bootstrap";
+import { Col, Container, Row, Table } from "reactstrap";
+import { Alert, Button } from "react-bootstrap";
 import { getAllProperties, searchProperties } from "../APIManagers/PropertiesManager";
+import "./Properties.css"
 
 export const PropertyList = () => {
   const navigate = useNavigate();
@@ -69,28 +70,36 @@ export const PropertyList = () => {
 
   return (
     <>
-      <Container fluid className="properties-list">
+      <Container className="properties-list">
+        <h1 className="properties-list-header">All Properties</h1>
         <Row>
-          <Col>
+          <Col className="pcol1">
             <Button onClick={create}>Create New</Button>
-            <div>
-              <form className="property-search-form">
-                <input
-                  type="text"
-                  id="searchQuery"
-                  value={searchQuery}
-                  onChange={handleSearchInputChange}
-                />
-                <Button onClick={handleSearchButtonClick} color="primary">
-                  Search
-                </Button>
-                {showAlert && emptySearchAlert()}
-              </form>
-            </div>
+            </Col>
+
+              <Col className="pcol2">
+              <div>
+                <form className="property-search-form">
+                  <input className="property-search"
+                    placeholder="search"
+                    type="text"
+                    id="searchQuery"
+                    value={searchQuery}
+                    onChange={handleSearchInputChange}
+                  />
+                  <Button onClick={handleSearchButtonClick} color="primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                  </Button>
+                  {showAlert && emptySearchAlert()}
+                </form>
+              </div>
+              </Col>
 
             {searchResults.length > 0 && (
-              <div>
-                <div><Link onClick={handleCancelSearch}>Quit Search</Link></div>
+              <div className="search-results">
+                <Link className="cancel-search" onClick={handleCancelSearch}>Quit Search</Link>
                 <h3>Search Results:</h3>
                 <Table>
                   <thead>
@@ -124,13 +133,18 @@ export const PropertyList = () => {
                 </Table>
               </div>
             )}
-          </Col>
         </Row>
           {!showVacant ?
         <Row>
           {!hideProperties && searchResults.length === 0 && (
-            <Col>
-              <Button onClick={switchView}>Show Vacant Properties</Button>
+            <>
+            <Row>
+              <div className="switch-view">
+              </div>
+              </Row>
+              <Col className="pcol3">
+              <Button variant="warning" onClick={switchView}>Filter Vacancies</Button>
+
               <Table>
                 <thead>
                   <tr>
@@ -162,11 +176,13 @@ export const PropertyList = () => {
                 </tbody>
               </Table>
             </Col>
+            </>
+
           )}
         </Row>
       :<>
-        <Col>
-        <Button onClick={switchView}>Show All Properties</Button>
+        <Col className="pcol4">
+        <Button variant="warning" onClick={switchView}>Unfilter Vacancies</Button>
         <Table>
           <thead>
             <tr>

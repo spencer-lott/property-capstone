@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { Alert} from "react-bootstrap"
+import { Alert, Container, Form, Button, Col} from "react-bootstrap"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { editProperty, getPropertyById } from "../APIManagers/PropertiesManager"
+import "./Properties.css"
 
 export const PropertyEdit = () => {
     const navigate = useNavigate()
     const { propertyId} = useParams()  
-    const [showTenant, setShowTenant] = useState(false)
     const [showAlert, setShowAlert] = useState(false)
 
     const [property, update] = useState({
@@ -72,39 +72,39 @@ export const PropertyEdit = () => {
 
     }
 
-    useEffect(() => {
-        if (property.userProfileId !== null || property.userProfileId !== -1)
-        {
-            setShowTenant(true)
-        }
-    }, [property.userProfileId])
-
     const handleCancel = () => {
         setShowAlert(false);
     };
 
-
     const unassignTenantAlert = () => {
         return (
-            <Alert variant="danger" key={'danger'}>
+            <Alert variant="danger" key={'danger'} style={{maxWidth: "400px"}}>
                 Are you sure you want to unassign <b>{property?.userProfile?.lastName}, {property?.userProfile?.firstName}</b> from <b>{property.streetAddress}?</b>
                 <br></br>
                 <Link onClick={unassign}>Yes</Link> / <Link onClick={handleCancel}>No</Link>
             </Alert>
         );
     };
-
     
-    return(
-    <>
-    <div>
-        <h1>Edit property</h1>
-        <br></br>
+    return(<>
+        <Container>
+            <Col className="form-col">
+            <div className="xButton">
+                <Button 
+                    style={{backgroundColor: "transparent",
+                    border: "none"}}
+                    onClick={()=> navigate(`/properties/${propertyId}`)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" className="bi bi-x-square-fill" viewBox="0 0 16 16">
+                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"/>
+                    </svg>
+                </Button>
+                </div>
+
+            <h1 className="form-header">Edit Property</h1>
             <form className="property-form">
-                {showTenant && (<>
+                {property?.userProfile?.id !== -1 && (<>
                     <h3>
-                        Tenant: {property?.userProfile?.lastName}, {property?.userProfile?.firstName}
-                        
+                       <i>{property?.userProfile?.lastName}, {property?.userProfile?.firstName}</i>
                     </h3>
                     <div><Link onClick={() => setShowAlert(true)}>Unassign this tenant?</Link></div>
                     {showAlert && unassignTenantAlert()}
@@ -151,7 +151,7 @@ export const PropertyEdit = () => {
         <fieldset>
         <div className="form-group">
             <label htmlFor="state-select">State</label>
-                <select id="type"
+                <Form.Select id="type" className="form-control"
                     value={property.state}
                     onChange={
                         (event) => {
@@ -212,7 +212,7 @@ export const PropertyEdit = () => {
                         <option value="WV">West Virginia</option>
                         <option value="WI">Wisconsin</option>
                         <option value="WY">Wyoming</option>   
-                    </select>  
+                    </Form.Select>  
                 </div>
         </fieldset>
 
@@ -276,9 +276,11 @@ export const PropertyEdit = () => {
         onClick={
             (clickEvent) => handleSaveButtonClick(clickEvent)
     }>
-        Submit Property</button>
+        Revise Property</button>
 </form>
-</div>
+</Col>
+</Container>
+
       </>
     )
 
