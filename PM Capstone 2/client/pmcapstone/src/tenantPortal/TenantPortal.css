@@ -1,0 +1,40 @@
+.tenant-portal{
+
+    background-color: whitesmoke;
+    min-height: 100vh; /* Set the minimum height to fill the viewport */
+    padding: 1.5%;
+}
+
+.tenant-portal-header{
+    font-family: 'Lobster', cursive;
+    border-bottom: solid black;
+}
+
+.tenant-message{
+    padding-top: 2%;
+    border-right: solid black;
+    background-color: whitesmoke;
+    /* border-radius: 10px 10px 10px 10px ; */
+    /* box-shadow: 0px 12px 15px -6px rgba(0,0,0.3); */
+    
+}
+
+.tenant-img{
+    padding-top: 4%;
+    margin-left: 10%;
+    border-radius: 10px 10px 10px 10px ;
+    max-width: 80%;
+    opacity: 0.9;
+
+}
+
+#C{
+    font-family: 'Crimson Text', serif;
+    font-size: 24px;
+}
+
+#L{
+    font-family: 'Lobster', cursive;
+    
+}
+

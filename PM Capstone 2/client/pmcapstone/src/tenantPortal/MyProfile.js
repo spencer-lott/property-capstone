@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { getUserProfileByIdWithProperty } from "../APIManagers/UserProfileManager";
+import "./TenantPortal.css"
 
 export const MyProfile = () => {
     const localPMUser = localStorage.getItem("userProfile")
@@ -38,9 +39,9 @@ export const MyProfile = () => {
             </Button>
             <Row>
 
-                <Col>
-            <h1 className="tenant-details-header" style={{margin: "5%"}}>{tenant?.firstName} {tenant?.lastName}</h1>
-                    <div><b>Name:</b> {tenant?.lastName}, {tenant?.firstName}</div>
+                <Col id="C">
+                    <h1 id="L" className="tenant-details-header" style={{margin: "5%"}}>{tenant?.firstName} {tenant?.lastName}</h1>
+                    <div id="C"><b>Name:</b> {tenant?.lastName}, {tenant?.firstName}</div>
                     <div><b>Phone:</b> {formatPhoneNumber(tenant?.phone)}</div>
                     <div><b>Email:</b> {tenant?.email}</div>
                     <div><b>Street Address:</b> {tenant?.property?.streetAddress}</div>
