@@ -13,7 +13,6 @@ function App() {
   useEffect(() => {
     if (!localStorage.getItem("userProfile")) {
         setIsLoggedIn(false)
-
     }
 }, [isLoggedIn])
 

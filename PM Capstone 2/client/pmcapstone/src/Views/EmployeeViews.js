@@ -14,9 +14,33 @@ import { TenantsList } from "../tenants/TenantsList"
 import { TenantDetails } from "../tenants/TenantDetails"
 import { AllRequestsList } from "../maintenanceHistory/AllRequestsList"
 import { EmployeeHome } from "../homePage/EmployeeHome"
+import React, { useEffect, useState } from "react";
+import "./DarkMode.css"
+import { Button } from "reactstrap"
+
 
 export const EmployeeViews = () => {
-    return(
+
+    // const [theme, setTheme] = useState(
+    //     localStorage.getItem('theme') || 'light'
+    //   );
+    //   const toggleTheme = () => {
+    //     if (theme === 'light') {
+    //       setTheme('dark');
+    //     } else {
+    //       setTheme('light');
+    //     }
+    //   };
+    //   useEffect(() => {
+    //     localStorage.setItem('theme', theme);
+    //     document.body.className = theme;
+    //   }, [theme]);
+
+    return(<>
+
+        {/* <div className={`App ${theme}`} style={{display: "flex", justifyContent: "flex-end"}}>
+          <Button onClick={toggleTheme}>Light/Dark</Button>
+        </div> */}
         <Routes>
         {/* Home/Landing Page */}
         <Route path="/" element={<EmployeeHome />} />
@@ -42,6 +66,7 @@ export const EmployeeViews = () => {
         <Route path="/requests" element={<AllRequestsList />} />
 
         </Routes>
+        </>
     )
 
 }
