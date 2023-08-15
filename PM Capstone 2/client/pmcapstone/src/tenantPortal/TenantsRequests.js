@@ -41,7 +41,7 @@ export const TenantsRequests = ({personalRequest, setAllHistory, user}) => {
             <tr>
                 <td>{status()}</td>
                 <td>{formatDate(personalRequest.dateRequested)}</td>
-                <td>{personalRequest.description}</td>
+                <td id="C">{personalRequest.description}</td>
                 {
                     showLinks ? (
                         <>
