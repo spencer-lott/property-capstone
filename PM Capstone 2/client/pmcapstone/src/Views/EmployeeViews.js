@@ -13,12 +13,13 @@ import { TenantEdit } from "../userProfiles/TenantEdit"
 import { TenantsList } from "../tenants/TenantsList"
 import { TenantDetails } from "../tenants/TenantDetails"
 import { AllRequestsList } from "../maintenanceHistory/AllRequestsList"
+import { EmployeeHome } from "../homePage/EmployeeHome"
 
 export const EmployeeViews = () => {
     return(
         <Routes>
         {/* Home/Landing Page */}
-        <Route path="/" element={"Welcome to Property Manager"} />
+        <Route path="/" element={<EmployeeHome />} />
 
         {/* Properties & Maintenance History*/}
         <Route path="/properties" element={ <PropertyList />} />
