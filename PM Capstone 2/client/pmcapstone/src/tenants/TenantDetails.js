@@ -47,7 +47,7 @@ export const TenantDetails = () => {
             </Col>
             <Col>
                 <h3 className="tenant-details">Tenant Details</h3>
-                <div><b>Name:</b> {tenant?.firstName} {tenant?.lastName}</div>
+                <div><b>Name:</b> {tenant?.firstName}, {tenant?.lastName}</div>
                 <div><b>Phone:</b> {formatPhoneNumber(tenant?.phone)}</div>
                 <div><b>Email:</b> {tenant?.email}</div>
                 <div><b>Street Address:</b> {tenant?.property?.streetAddress}</div>

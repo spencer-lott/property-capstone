@@ -24,7 +24,7 @@ export const BootstrapNav = () => {
   return (
   <>
   <div>
-    <Navbar  expand="md" style={{position: "fixed", top: "0", left: "0", width: "100%", zIndex: "3", backgroundColor: "#2F3E83"}}>
+    <Navbar  expand="md" style={{position: "fixed", top: "0", left: "0", width: "100%", zIndex: "3", backgroundColor: "#01CC74"}}>
         <NavbarBrand tag={RRNavLink} to="/">Property Manager</NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>

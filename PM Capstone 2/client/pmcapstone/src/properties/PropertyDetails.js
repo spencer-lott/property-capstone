@@ -44,10 +44,20 @@ export const PropertyDetails = () => {
     };
 
     const handleDelete = () => {
-        deleteProperty(property.id).then(() => {
+        if (property?.userProfile?.id === -1) {
+
+            deleteProperty(property.id)
+            .then(propertyObject => setProperty(propertyObject))
+            .then(() => {
+                setShowAlert(false);
+                navigate(`/properties`);
+            });
+        } else {
+            window.alert(`${property?.userProfile?.firstName} ${property?.userProfile?.lastName} is still assigned to this property. Make sure they are moved out and unassigned before deleting this property.`);
+
             setShowAlert(false);
-            navigate(`/properties`);
-        });
+
+        }
     };
 
     const handleCancel = () => {
