@@ -84,7 +84,7 @@ export const AssignTenantEdit = () => {
     }
 
     return(<>
-    <Container>
+    <Container className="login-page">
         <Col className="form-col">
             <div className="xButton">
                 <Button 
@@ -102,7 +102,7 @@ export const AssignTenantEdit = () => {
                     <div className="form-group">
                     {/* <label htmlFor="tenant-select">Select the new tenant for this property</label> */}
                         <Form.Select id="type" className="form-control"
-                            value={property.state}
+                            value={property.userProfileId}
                             onChange={
                                 event => selectList(event)}>
                                 <option value="0">Select</option>
