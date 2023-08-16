@@ -5,7 +5,7 @@ Property Manager is an app designed for property management companies. With it a
 ## Demo
 This app was built as a final, full stack capstone project at the end of a 6-month bootcamp called [NewForce](https://generationwv.org/programs/newforce/).
 
-You can watch a video of me presenting my app [HERE]()!
+You can watch a video of me presenting my app [HERE](https://www.loom.com/share/0c9bc0b8eae34a289396a8812156d659?sid=e867df11-0a1d-444e-8f78-b1798bcee63f)!
 
 ## Testing Instructions
 After cloning this repository to your own machine,
