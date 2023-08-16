@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Container } from 'reactstrap';
 import { useNavigate } from "react-router-dom";
 import { login } from "../APIManagers/UserProfileManager";
 
@@ -24,23 +24,26 @@ export default function Login({setIsLoggedIn}) {
   };
 
   return (
-    <Form onSubmit={loginSubmit}>
-      <fieldset>
-        <FormGroup>
-          <Label for="email">Email</Label>
-          <Input id="email" type="text" onChange={e => setEmail(e.target.value)} />
-        </FormGroup>
-        {/* <FormGroup>
-          <Label for="password">Password</Label>
-          <Input id="password" type="password" onChange={e => setPassword(e.target.value)} />
-        </FormGroup> */}
-        <FormGroup>
-          <Button>Login</Button>
-        </FormGroup>
-        {/* <em>
-          Not registered? <Link to="/register">Register</Link>
-        </em> */}
-      </fieldset>
-    </Form>
+    <Container className="login-page">
+      <Form onSubmit={loginSubmit}>
+      <h1 style={{paddingTop: "15%"}}>Property Manager Login</h1>
+          <fieldset>
+            <FormGroup>
+              <Label for="email">Email Address</Label>
+              <Input id="email" type="text" style={{maxWidth: "500px"}} onChange={e => setEmail(e.target.value)} />
+            </FormGroup>
+            <FormGroup>
+              <Label for="password">Password</Label>
+              <Input id="password" type="password" style={{maxWidth: "500px"}} onChange={e => setPassword(e.target.value)} />
+            </FormGroup>
+            <FormGroup>
+              <Button variant="primary">Login</Button>
+            </FormGroup>
+            {/* <em>
+              Not registered? <Link to="/register">Register</Link>
+            </em> */}
+          </fieldset>
+      </Form>
+    </Container>
   );
 }

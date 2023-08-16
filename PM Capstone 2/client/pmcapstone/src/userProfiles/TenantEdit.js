@@ -48,7 +48,7 @@ export const TenantEdit = () => {
     };    
     
     return (<>
-    <Container>
+    <Container className="login-page">
         <Col className="form-col">
         <div className="xButton">
              <Button 
