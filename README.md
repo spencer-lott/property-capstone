@@ -24,6 +24,6 @@ After cloning this repository to your own machine,
 5. This will run the API along with an API tool [Swagger](https://swagger.io/docs/specification/2-0/what-is-swagger/) for testing at the address `https://localhost:5001/swagger/index` and open it in your default browser.
 
 **Run the Client:**
-1. In your command line, cd into the [Client Folder](https://github.com/guacajoely/Admitted/tree/main/Admitted/Client/admitted), and into the folder named `pmcapstone`.
+1. In your command line, cd into the [Client Folder](https://github.com/spencer-lott/property-capstone/tree/main/PM%20Capstone%202/client), and into the folder named `pmcapstone`.
 2. Run `npm install react-scripts`. Once this has been installed, run `npm start`.
 3. This will run the React app at the address `http://localhost:3000/` and open it in your default browser.
