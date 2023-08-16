@@ -25,7 +25,7 @@ export const MyHome = () => {
                             The Management Team</p>
                     </Col>
                     <Col>
-                        <img className="tenant-img" src="./NiceHouse.jpg" alt="something went wrong displaying the image"/>
+                        <img className="tenant-img" src="./NiceHouse.jpg"/>
                     </Col>
                 </Row>
             </Container>
