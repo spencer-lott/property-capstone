@@ -65,7 +65,7 @@ export const NewUserForm = () => {
     };
     
     return (<>
-    <Container>
+    <Container className="login-page">
         <Col className="form-col">
                 <form className="user-form">
                 <div className="xButton">
