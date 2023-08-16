@@ -38,7 +38,7 @@ export const MyRequests = () => {
                     </svg>
             </Button>
             <h1 id="L" className="requests-header">My Requests</h1>
-            <h3 className="emergency-phone-header">FOR EMERGENCIES PLEASE CALL (304) 989-3535</h3>
+            <h3 className="emergency-phone-header">FOR EMERGENCIES ONLY PLEASE CALL (555) 555-5555</h3>
             <Col>
             <Button onClick={() => navigate(`/maintenance-history/add/${user?.property?.id}`)}>Add Request</Button>
                 <Table>
