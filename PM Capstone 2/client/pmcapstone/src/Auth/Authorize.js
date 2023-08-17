@@ -12,3 +12,5 @@ export default function Authorize({setIsLoggedIn}) {
       );
     
    }
+
+   //This was provided to us

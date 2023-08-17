@@ -5,6 +5,7 @@ import { getAllUserProfilesWithProperty } from "../APIManagers/UserProfileManage
 import { Button, Col, Container, Form } from "react-bootstrap"
 import "./Properties.css"
 
+//In order to assign a tenant to a property, I found that I had to get fetch all the information attached to the property already and force it into state. Really the only thing changing here is the vacant status and the userprofile id
 export const AssignTenantEdit = () => {
     const navigate = useNavigate()
     const { propertyId } = useParams()
@@ -21,6 +22,7 @@ export const AssignTenantEdit = () => {
         getAllUserProfilesWithProperty().then(allProfiles => setProfiles(allProfiles))
     }, [])
 
+    //This useEffect is what filters through the user profiles and find which ones are unassigned
     useEffect(() => {
         const filtered = profiles.filter(profile => profile?.property === null && profile.isEmployee === false)
         setUnassignedTenants(filtered)
@@ -34,7 +36,7 @@ export const AssignTenantEdit = () => {
         sizeDescription: "",
         rent: 0,
         vacant: false,
-        userProfileId: -1
+        userProfileId: -1 // -1 is used as a default number for vacant properties
     })
 
     useEffect(() => {
@@ -69,6 +71,7 @@ export const AssignTenantEdit = () => {
 
     }
 
+    //This function parses the selected UserProfile.id, makes a copy of it, and sends it as the property.userProfileId to the property. It also mark the vacant status to false. 
     const selectList = (event) => {
         const selectedTenantId = parseInt(event.target.value)
 

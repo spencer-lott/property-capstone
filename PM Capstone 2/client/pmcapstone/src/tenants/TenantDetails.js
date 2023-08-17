@@ -4,7 +4,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { getUserProfileByIdWithProperty } from "../APIManagers/UserProfileManager";
 import "./Tenants.css"
 
-
+//This function is responsible for the page of a specific tenant. We are able to see all their details on this page
 export const TenantDetails = () => {
     const navigate = useNavigate()
     const [tenant, setTenant] = useState();

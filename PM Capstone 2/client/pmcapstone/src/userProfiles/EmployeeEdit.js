@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { editUserProfile, getUserProfileById } from "../APIManagers/UserProfileManager"
 import { Container, Col, Button } from "react-bootstrap"
 
+//Employee UserProfiles have their own edit form
 export const EmployeeEdit = () => {
     const navigate = useNavigate()
     const { userId } = useParams()

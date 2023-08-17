@@ -2,9 +2,10 @@ import { useEffect, useState } from "react"
 import { getAllUserProfilesWithProperty } from "../APIManagers/UserProfileManager"
 import { Link, useNavigate } from "react-router-dom"
 
+//This is the function that provides the information for the table on the AllRequestsList page. Very similar to MaintenanceHistory.js except this is for all the requests and not just ones attached to a single property.
 export const Request = ({ request }) => {
     const navigate = useNavigate()
-    const [isChecked, setIsChecked] = useState(false); // Set initial value to false
+    const [isChecked, setIsChecked] = useState(false)
     const [showCheckbox, setShowCheckbox] = useState(false)
 
     const [users, setUsers] = useState([])
@@ -23,8 +24,9 @@ export const Request = ({ request }) => {
 
     useEffect(() => {
         setIsChecked(false)
-      }, [])
-
+    }, [])
+    
+    //Checkbox to help signify that it is incomplete
     useEffect(() => {
         if (request.dateCompleted === "1999-09-09T13:40:50.993") {
           setShowCheckbox(true);
@@ -59,7 +61,6 @@ export const Request = ({ request }) => {
                 <td>{request.description}</td>
                 {requestBy()}
                 <td><Link to={`/properties/${request?.property?.id}`}>{request?.property?.streetAddress}</Link></td>
-
             </tr>
         </tbody>
         </>

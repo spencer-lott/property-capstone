@@ -8,6 +8,7 @@ export const UserProfile = ({ user, setUsers }) => {
     const [showAlert, setShowAlert] = useState(false)
     const navigate = useNavigate()
 
+    //This presents a user type to be displayed in the table based on what requirements they meet in the database
     const userType = () => {
         if (user.isAdmin === false && user.isEmployee === false)
             return <td>Tenant</td>
@@ -22,9 +23,9 @@ export const UserProfile = ({ user, setUsers }) => {
         }
     }
 
+    //A user can only be deleted if there is no property attached to them. If someone tries to delete a profile with a property attached, the program will show an alert to prevent bugs
     const handleDelete = () => {
         if (user?.property === null){
-
             deleteUserProfile(user.id)
             .then(users => setUsers(users))
             .then(() => {
@@ -32,8 +33,8 @@ export const UserProfile = ({ user, setUsers }) => {
                 navigate(`/users`)
             })
         } else {
+            //This window alert prevents the bug
             window.alert(`This user is assigned to the property at ${user?.property.streetAddress} and must be UNASSIGNED first before you can delete them.`);
-
             setShowAlert(false);
         }
       }      

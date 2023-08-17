@@ -1,6 +1,7 @@
 import {Col, Container, Row} from "reactstrap"
 import "./TenantPortal.css"
 
+//Landing page for the tenant portal. They are shown this welcome message as well as a photo
 export const MyHome = () => {
 
     return (

@@ -1,23 +1,22 @@
 //THESE URL'S MUST MATCH EXACTLY HOW THEY SHOW IN SWAGGER (ie BACKEND)
 const baseUrl = '/api/MaintenanceHistory';
-// https://localhost:5001/api/MaintenanceHistory/GetPropertyMaintenanceHistory/1
 
+//Gets all the maintenance history
 export const getAllMaintenanceHistory = () => {
     return fetch(baseUrl).then((res) => res.json())
 };
 
+//Gets all of the maintenance history and gets all the properties
 export const getAllMaintenanceHistoryWithProperty = () => {
     return fetch('/api/MaintenanceHistory/GetAllMaintenanceHistoryWithProperty').then((res) => res.json())
 };
 
-
-// https://localhost:5001/api/MaintenanceHistory/GetAllMaintenanceHistoryWithProperty
-
-
+//Gets all the maintenance history with the single property table it is attached to
 export const getMaintenanceHistoryByPropertyId = (id) => {
     return fetch(`${baseUrl}/GetPropertyMaintenanceHistory/${id}`).then((res) => res.json())
 }
 
+//Add
 export const addMaintenanceHistory = (singleNote) => {
     return fetch(baseUrl, {
         method: "POST",
@@ -28,13 +27,15 @@ export const addMaintenanceHistory = (singleNote) => {
     });
 }
 
+//Delete
 export const deleteMaintenanceHistory = (id) => {
     return fetch(`/api/MaintenanceHistory/${id}`, {
       method: "DELETE",
     })
   };
 
-  export const editMaintenanceHistory = (maintenanceHistory) => {
+//Edit
+export const editMaintenanceHistory = (maintenanceHistory) => {
     return fetch(`/api/MaintenanceHistory/${maintenanceHistory.Id}`, {
         method: "PUT",
         headers: {
@@ -42,9 +43,9 @@ export const deleteMaintenanceHistory = (id) => {
         },
         body: JSON.stringify(maintenanceHistory)
     })
-    // .then(() => getAllProperties())
 }
 
+//Gets the single MH by id
 export const getMaintenanceHistoryById = (id) => {
     return fetch(`/api/MaintenanceHistory/${id}`).then((res) => res.json())
 }

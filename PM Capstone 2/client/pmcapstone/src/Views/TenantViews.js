@@ -13,15 +13,12 @@ export const TenantViews = () => {
     return(
         <>
         <Routes>
-        <Route path="/" element={<MyHome />} />
-        <Route path={`/my-profile/${PMUserObject.id}`} element={<MyProfile />} />
-        <Route path={`/my-profile/edit/${PMUserObject.id}`} element={<MyProfileEdit />} />
-        <Route path={`/my-requests/${PMUserObject.id}`} element={<MyRequests />} />
-        <Route path={`/maintenance-history/add/:propertyId`} element={ <MaintenanceHistoryForm />} />
-        <Route path={`/maintenance-history/edit/:noteId/:mhpropertyId`} element={ <MaintenanceHistoryEdit />} />
-
-
-
+            <Route path="/" element={<MyHome />} />
+            <Route path={`/my-profile/${PMUserObject.id}`} element={<MyProfile />} />
+            <Route path={`/my-profile/edit/${PMUserObject.id}`} element={<MyProfileEdit />} />
+            <Route path={`/my-requests/${PMUserObject.id}`} element={<MyRequests />} />
+            <Route path={`/maintenance-history/add/:propertyId`} element={ <MaintenanceHistoryForm />} />
+            <Route path={`/maintenance-history/edit/:noteId/:mhpropertyId`} element={ <MaintenanceHistoryEdit />} />
         </Routes>
         </>
     )

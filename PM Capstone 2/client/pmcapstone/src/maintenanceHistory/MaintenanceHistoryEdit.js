@@ -5,6 +5,7 @@ import {getPropertyById} from "../APIManagers/PropertiesManager"
 import { Container, Col, Button } from "react-bootstrap"
 import "./Requests.css"
 
+//Ability to edit a request
 export const MaintenanceHistoryEdit = () => {
     const localPMUser = localStorage.getItem("userProfile")
     const PMUserObject = JSON.parse(localPMUser)
@@ -17,16 +18,17 @@ export const MaintenanceHistoryEdit = () => {
         userProfileId: PMUserObject.id, 
         propertyId: mhpropertyId
     })
-    const [originalDateRequested, setOriginalDateRequested] = useState(""); // New state variable
-    const [originalDateCompleted, setOriginalDateCompleted] = useState("");
-    const [originalDescription, setOriginalDescription] = useState("");
+    //These are the original values. We retrieve them and put them back into state. So that no errors are made when the PUT is executed.
+    const [originalDateRequested, setOriginalDateRequested] = useState("") // New state variable
+    const [originalDateCompleted, setOriginalDateCompleted] = useState("") // New state variable
+    const [originalDescription, setOriginalDescription] = useState("") // New state variable
 
     useEffect(() => {
         getMaintenanceHistoryById(noteId).then((noteArray) => {
             update(noteArray);
             setOriginalDateRequested(noteArray.dateRequested) // Store the original dateRequested
-            setOriginalDateCompleted(noteArray.dateCompleted)
-            setOriginalDescription(noteArray.description)
+            setOriginalDateCompleted(noteArray.dateCompleted) // Store the original dateCompleted
+            setOriginalDescription(noteArray.description) // Store the original dateCompleted
         });
     }, [noteId]);
 
@@ -36,10 +38,12 @@ export const MaintenanceHistoryEdit = () => {
         })
     }, [mhpropertyId])
 
+    //In the tenant portal this hides the ability to mark it as completed.
     useEffect(() => {
         PMUserObject.isEmployee === false ? setHideDateCompleted(true) : setHideDateCompleted(false)
     })
 
+    //The handleSaveButtonClick was complicated. I worked through and had lots of roadblocks when working with the dates. I found some of this from the internet to help me.
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
 
@@ -54,9 +58,9 @@ export const MaintenanceHistoryEdit = () => {
         if (!dateCompleted || dateCompleted === '1999-09-09T13:40:50.994Z') {
             // If the originalDateCompleted exists, use it as the dateCompleted value
             if (originalDateCompleted) {
-            dateCompleted = originalDateCompleted;
+            dateCompleted = originalDateCompleted
             } else {
-            dateCompleted = '1999-09-09T13:40:50.994Z';
+            dateCompleted = '1999-09-09T13:40:50.994Z'
             }
         } else {
             // If it's not empty, convert it to ISO string format
@@ -76,15 +80,16 @@ export const MaintenanceHistoryEdit = () => {
             PropertyId: mhpropertyId,
             DateRequested: originalDateRequested
         }
+
+        //Executes the fetch then navigates
         if(PMUserObject.isEmployee === false) {
-            return editMaintenanceHistory(noteToSentToAPI).then(navigate(`/my-requests/${PMUserObject.id}`))
+            return editMaintenanceHistory(noteToSentToAPI).then(navigate(`/my-requests/${PMUserObject.id}`)) //Navigating for tenant
         } else{
-
-
-        return editMaintenanceHistory(noteToSentToAPI).then(navigate(`/properties/${mhpropertyId}`))
+            return editMaintenanceHistory(noteToSentToAPI).then(navigate(`/properties/${mhpropertyId}`)) //Navigating for employee
         }
     }
 
+    //function that takes the used to their specific form for that single request to edit
     const userNavigate = () => {
         if (PMUserObject.isEmployee === false){
             navigate(`/my-requests/${PMUserObject.id}`)

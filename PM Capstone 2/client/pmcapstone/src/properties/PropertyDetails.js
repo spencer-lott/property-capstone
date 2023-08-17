@@ -6,6 +6,7 @@ import { getMaintenanceHistoryByPropertyId } from "../APIManagers/MaintenanceHis
 import { MaintenanceHistory } from "../maintenanceHistory/MaintenanceHistory";
 import "./Properties.css"
 
+//This function displays the details for a specific property
 export const PropertyDetails = () => {
     const [property, setProperty] = useState();
     const { id } = useParams();
@@ -13,6 +14,7 @@ export const PropertyDetails = () => {
     const [showAlert, setShowAlert] = useState(false);
     const [notes, setNotes] = useState([]);
 
+    //function to navigate the user to the assign tenant form if the link is clicked to assign. Or displays the name of the tenant if one is already assigned
     const tenantOrNoTenant = () => {
         if (property.userProfile.id === -1) {
             return <>NO TENANT <Link to={`/properties/assign-tenant/${property.id}`}>assign one?</Link></>
@@ -51,10 +53,9 @@ export const PropertyDetails = () => {
                 navigate(`/properties`);
             });
         } else {
+            //Preventative measure to make sure to the user profile is unassigned first before deleting a property
             window.alert(`${property?.userProfile?.firstName} ${property?.userProfile?.lastName} is still assigned to this property. Make sure they are moved out and unassigned before deleting this property.`);
-
             setShowAlert(false);
-
         }
     };
 

@@ -6,6 +6,7 @@ import { Tenant } from "./Tenant";
 import { getAllUserProfilesWithProperty, searchUserProfiles } from "../APIManagers/UserProfileManager";
 import "./Tenants.css"
 
+//This function is responsible for showing all the tenants that exist.
 export const TenantsList = () => {
     const [users, setUsers] = useState([]);
     const [filteredTenants, setFilteredTenants] = useState([])
@@ -14,6 +15,7 @@ export const TenantsList = () => {
     const [hideTenants, setHideTenants] = useState(false)
     const [showAlert, setShowAlert] = useState(false)  
 
+    //function I found on stack overflow to format the phone number nicely for the UI
     let formatPhoneNumber = (str) => {
         //Filter only numbers from the input
         let cleaned = ('' + str).replace(/\D/g, '')
@@ -36,11 +38,13 @@ export const TenantsList = () => {
         getUsers();
     },[])
 
+    //Filtering the employees and admins out of the list so that we only see tenant UserProfiles
     useEffect(() => {
         const tenants = users.filter(user => user.isAdmin === false && user.isEmployee === false)
             setFilteredTenants(tenants)
     }, [users])
 
+    //See PropertiesList.js for a similar search 
     const handleSearchInputChange = (event) => {
         setSearchQuery(event.target.value)
         setShowAlert(false)

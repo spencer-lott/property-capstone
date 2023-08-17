@@ -1,16 +1,17 @@
 //THESE URL'S MUST MATCH EXACTLY HOW THEY SHOW IN SWAGGER (ie BACKEND)
 const baseUrl = '/api/property';
 
-//Fetching every single property in the database
+//Gets all the properties in the database
 export const getAllProperties = () => {
     return fetch(baseUrl).then((res) => res.json())
 };
 
+//Get single property by its id
 export const getPropertyById = (id) => {
     return fetch(`/api/property/${id}`).then((res) => res.json())
 }
 
-//POST fetch to add a property to the database
+//ADD
 export const addProperty = (singleProperty) => {
     return fetch(baseUrl, {
         method: "POST",
@@ -21,6 +22,7 @@ export const addProperty = (singleProperty) => {
     });
 }
 
+//Delete
 export const deleteProperty = (id) => {
     return fetch(`/api/property/${id}`, {
       method: "DELETE",
@@ -28,7 +30,8 @@ export const deleteProperty = (id) => {
       .then(() => getAllProperties())
   };
 
-  export const editProperty = (property) => {
+//Edit
+export const editProperty = (property) => {
     return fetch(`/api/property/${property.Id}`, {
         method: "PUT",
         headers: {
@@ -38,9 +41,8 @@ export const deleteProperty = (id) => {
     }).then(() => getAllProperties())
 }
 
+//Search properties according to input and match it with the criteria
 export const searchProperties = (q) => {
     return fetch(`${baseUrl}/search?q=${q}`).then((res) => res.json())
 }
-
-// https://localhost:5001/api/Property/search?q=tx
 

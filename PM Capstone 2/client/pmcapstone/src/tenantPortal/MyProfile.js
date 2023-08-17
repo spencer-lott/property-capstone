@@ -4,6 +4,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { getUserProfileByIdWithProperty } from "../APIManagers/UserProfileManager";
 import "./TenantPortal.css"
 
+//This is the personal profile page for the tenant in their portal. This page displays all their personal information. They have the ability to edit some of their information.
 export const MyProfile = () => {
     const localPMUser = localStorage.getItem("userProfile")
     const PMUserObject = JSON.parse(localPMUser)
@@ -14,6 +15,7 @@ export const MyProfile = () => {
         getUserProfileByIdWithProperty(PMUserObject.id).then(setTenant)
     },[])
 
+    //Found this function to format the phone numbers to make them look better for the UI
     let formatPhoneNumber = (str) => {
         //Filter only numbers from the input
         let cleaned = ('' + str).replace(/\D/g, '');

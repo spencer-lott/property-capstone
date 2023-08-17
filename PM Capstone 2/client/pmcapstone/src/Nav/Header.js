@@ -11,6 +11,7 @@ import {
   NavLink
 } from 'reactstrap';
 
+//This header navbar was given to us. I wasn't able to make edits to it without causing lots of bugs so I kept it pretty much the same. Added my own links and z-indexed the logout button to come out on top so that I could use it for the tenant nav.
 export default function Header({isLoggedIn, setIsLoggedIn}) {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);

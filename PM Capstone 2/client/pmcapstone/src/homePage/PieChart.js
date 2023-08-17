@@ -1,6 +1,7 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
 
+//This is the pie chart itself
 export const PieChart = ({ chartData }) => {
     return (
         <div className="chart-container">
