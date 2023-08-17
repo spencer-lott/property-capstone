@@ -4,7 +4,7 @@ import { Request } from "./Request"
 import { Col, Container, Table } from "reactstrap";
 import "./Requests.css"
 
-
+//This gets all the requests that have been made--Complete and incomplete.
 export const AllRequestsList = () => {
     const [requests, setRequests] = useState([])
 

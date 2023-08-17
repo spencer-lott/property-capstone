@@ -4,8 +4,8 @@ import {addUserProfile} from "../APIManagers/UserProfileManager"
 import { Col, Container, Button, Form } from "react-bootstrap"
 import "./UserProfiles.css"
 
+//This function is for creating a new user
 export const NewUserForm = () => {
-
     const [showTenantInputs, setShowTenantInputs] = useState(true)
     const navigate = useNavigate()
     const [user, updateUser] = useState({
@@ -24,6 +24,7 @@ export const NewUserForm = () => {
     const handleSaveButtonClick = (event) => {
         event.preventDefault();
     
+        //Initially set to send a tenant profile to the database
         let userToSendToAPI = {
             FirstName: user.firstName,
             LastName: user.lastName,
@@ -37,6 +38,7 @@ export const NewUserForm = () => {
             GeneralNotes: user.generalNotes
         }
 
+        //Conditional that sends only valid information to the database for an employee UserProfile
         if (user.isEmployee === true) {
             userToSendToAPI = {FirstName: user.firstName,
             LastName: user.lastName,
@@ -49,6 +51,7 @@ export const NewUserForm = () => {
 
     };    
 
+    //State is set to empty strings when a user is creating an employee
     const userSelect = (event) => {
         const selectedUserType = event.target.value === "true";
         const copy = {

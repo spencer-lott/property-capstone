@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 import { Button } from "react-bootstrap"
 import "./TenantPortal.css"
 
+//This function will only get the requests associated with that specific tenant and property. 
 export const MyRequests = () => {
     const localPMUser = localStorage.getItem("userProfile")
     const PMUserObject = JSON.parse(localPMUser)
@@ -23,6 +24,7 @@ export const MyRequests = () => {
         getAllMaintenanceHistory().then(history => setAllHistory(history))
     },[])
 
+    //Needed to filter so I could get the specific requests of the user. The ?'s are for accessing foreign tables so that it doesn't give undefined.
     useEffect(() => {
         const personalRequests = allHistory.filter(request => request.propertyId === user?.property?.id)
         setFilteredRequests(personalRequests)

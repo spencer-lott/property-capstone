@@ -6,7 +6,7 @@ import Authorize from "./Auth/Authorize";
 import { ApplicationViews } from "./Views/ApplicationViews";
 import Header from "./Nav/Header";
 
-
+//Everything to do with login state was provided
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 

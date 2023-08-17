@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 
 export const Tenant = ({ tenant }) => {
 
+    //Found on stack overflow
     function formatPhoneNumber(phone) {
         //formatPhoneNumber string and remove all unnecessary characters
         phone = phone.replace(/[^\d]/g, "");
@@ -16,6 +17,7 @@ export const Tenant = ({ tenant }) => {
     }
     var phone = tenant.phone;
     phone = formatPhoneNumber(phone); //(123) 456-7890
+    
     
     const addressOrNoAddress = () => {
         if (!tenant?.property) {

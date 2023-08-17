@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { deleteMaintenanceHistory, getAllMaintenanceHistory } from "../APIManagers/MaintenanceHistoryManager";
 
+//This function handles the actual information that is displayed in the tenant's requests table
 export const TenantsRequests = ({personalRequest, setAllHistory, user}) => {
     const [showLinks, setShowLinks] = useState(false)
 
+    //function found on stack overflow to format the date nicely
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString()
@@ -26,6 +28,7 @@ export const TenantsRequests = ({personalRequest, setAllHistory, user}) => {
         .then(history => setAllHistory(history))
       };   
 
+    //This makes it so that edit and delete links are available if the request is incomplete still
     useEffect(() => {
         if (personalRequest.dateCompleted === '1999-09-09T13:40:50.993') {
             setShowLinks(true)

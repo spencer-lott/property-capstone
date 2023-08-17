@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { addProperty } from "../APIManagers/PropertiesManager"
 import { Container, Col, Form, Button } from "react-bootstrap"
 
+//This is the create form for making a new property
 export const PropertiesForm = () => {
     const navigate = useNavigate()
     const [property, update] = useState({

@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import { editProperty, getPropertyById } from "../APIManagers/PropertiesManager"
 import "./Properties.css"
 
+//Similar to the create form except a tenant can be unassigned from the property if there is one attached.
 export const PropertyEdit = () => {
     const navigate = useNavigate()
     const { propertyId} = useParams()  
@@ -28,6 +29,8 @@ export const PropertyEdit = () => {
 
     const handleSaveButtonClick = (event) => {
         event.preventDefault()
+        
+        //Initially a PUT for a property without an assigned tenant
         let propertyToEdit = {
             Id: parseInt(propertyId),
             StreetAddress: property.streetAddress,
@@ -39,6 +42,7 @@ export const PropertyEdit = () => {
             Vacant: true
         }
         
+        //Conditional to affect PUT made to a property with an assigned tenant
         if (property.userProfileId !== -1){
             propertyToEdit = {
                 Id: parseInt(propertyId),
@@ -56,6 +60,7 @@ export const PropertyEdit = () => {
         return editProperty(propertyToEdit).then(navigate(`/properties/${propertyId}`))
     }
 
+    //Unassigning the tenant
     const unassign = (event) => {
         event.preventDefault()
         let propertyToEdit = {

@@ -6,6 +6,7 @@ import { UserProfile } from "./UserProfile";
 import { useNavigate } from "react-router-dom";
 import "./UserProfiles.css"
 
+//This function displays the table of all the UserProfiles
 export const UserProfilesList = () => {
     const navigate = useNavigate()
     const [users, setUsers] = useState([])

@@ -25,5 +25,6 @@ After cloning this repository to your own machine,
 
 **Run the Client:**
 1. In your command line, cd into the [Client Folder](https://github.com/spencer-lott/property-capstone/tree/main/PM%20Capstone%202/client), and into the folder named `pmcapstone`.
-2. Run `npm install react-scripts`. Once this has been installed, run `npm start`.
-3. This will run the React app at the address `http://localhost:3000/` and open it in your default browser.
+2. While in the `pmcapstone` folder run npm install chart.js react-chartjs-2
+3. Run `npm install react-scripts`. Once this has been installed, run `npm start`.
+4. This will run the React app at the address `http://localhost:3000/` and open it in your default browser.

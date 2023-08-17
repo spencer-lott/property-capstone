@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { editUserProfile, getUserProfileById } from "../APIManagers/UserProfileManager";
 import { Col, Container, Button } from "react-bootstrap";
 
+//This function allows a tenant to edit some of their personal information
 export const MyProfileEdit = () => {
     const navigate = useNavigate()
     const localPMUser = localStorage.getItem("userProfile")

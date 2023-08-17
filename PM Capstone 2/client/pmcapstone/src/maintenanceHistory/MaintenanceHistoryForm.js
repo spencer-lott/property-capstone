@@ -3,6 +3,7 @@ import {useNavigate, useParams} from "react-router-dom"
 import {addMaintenanceHistory} from "../APIManagers/MaintenanceHistoryManager"
 import { Container, Col, Button } from "react-bootstrap"
 
+//Form for creating a request as well as the code to POST and navigate to specific pages based on the user (see MaintenanceHistoryEdit for similar code and comments)
 export const MaintenanceHistoryForm = () => {
     const localPMUser = localStorage.getItem("userProfile")
     const PMUserObject = JSON.parse(localPMUser)

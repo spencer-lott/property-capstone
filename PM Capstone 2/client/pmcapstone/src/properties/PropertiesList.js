@@ -10,7 +10,7 @@ export const PropertyList = () => {
   const [properties, setProperties] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
   const [searchResults, setSearchResults] = useState([])
-  const [hideProperties, setHideProperties] = useState(false)
+  const [hideProperties, setHideProperties] = useState(false) 
   const [showAlert, setShowAlert] = useState(false)
   const [showVacant, setShowVacant] = useState(false)
   const [vacantProperties, setVacantProperties] = useState([])
@@ -19,6 +19,7 @@ export const PropertyList = () => {
     getAllProperties().then((allProperties) => setProperties(allProperties))
   }
 
+  //This is what is displaying all the properties on the page
   useEffect(() => {
     getProperties()
   }, [])
@@ -27,16 +28,18 @@ export const PropertyList = () => {
     navigate("/properties/add");
   }
 
+  //This is what handles the search
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value)
     setShowAlert(false)
   }
 
+  //I didn't want to be able to see the search results and the original table, so I used state to hide the original table then unhide it when the quit search button link was clicked
   const handleSearchButtonClick = (event) => {
     event.preventDefault();
 
     if (searchQuery.trim() === ""){
-        setShowAlert(true)
+        setShowAlert(true) //if empty search an alert is shown
     } else {
         searchProperties(searchQuery).then((response) => {
             setSearchResults(response);
@@ -45,12 +48,14 @@ export const PropertyList = () => {
     }
   }
 
+  //Cancel search function when the "Quit search" link is clicked. Then shows all the properties instead of just the ones that meet the search criteria.
   const handleCancelSearch = () => {
         setSearchQuery("")
         setSearchResults([])
         setHideProperties(false)
   }
 
+  //Prevents the user from submitting and empty search. This was necessary to prevent a bug
   const emptySearchAlert = () => {
     return (
         <Alert variant="danger" key={'danger'}>
@@ -59,6 +64,7 @@ export const PropertyList = () => {
     )
   }
 
+  //This function and the useEffect below filter and use state to display properties that are vacant by the click of a button. When the button is clicked again, it shows all the properties again. I did something similar to this in my bird-capstone
   const switchView = () => {
     setShowVacant(!showVacant)
   }

@@ -11,6 +11,7 @@ export const MaintenanceHistory = ({ note, setNotes, property }) => {
         getAllUserProfiles().then(allUserProfiles => setUsers(allUserProfiles))
     },[])
 
+    //This function displays the name of the user who completed the request. I did it this way because it wasn't set up in my backend for me to do it another way. It was a good reminder of how to loop.
     const completedBy = () => {
         for (let i = 0; i < users.length; i++) {
             const user = users[i]
@@ -20,11 +21,13 @@ export const MaintenanceHistory = ({ note, setNotes, property }) => {
         }
     }
 
+    //format date function found on stack overflow
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString()
     }
 
+    //I used a default date to distinguish between completed requests and incomplete requests. Incomplete are 1999-09-09T13:40:50.993, and completed are anything else. Incomplete are font colored red, and complete are font colored green.
     const status = () => {
         if (note.dateCompleted === '1999-09-09T13:40:50.993'){
             return <div style={{color: "red"}}>INCOMPLETE</div>
@@ -34,12 +37,11 @@ export const MaintenanceHistory = ({ note, setNotes, property }) => {
         }
     }
 
+    //Delete method to delete an individual request. After deleted, it fetches all the requests for that property so that it's updated for the user to see.
     const handleDelete = (event) => {
         event.preventDefault()
         deleteMaintenanceHistory(note.id).then(() => getMaintenanceHistoryByPropertyId(id)).then(propertyNotes => setNotes(propertyNotes))
-
       };   
-
 
     return(<>
         <tbody>
